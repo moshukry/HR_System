@@ -1,9 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System.Linq;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace HR_System.Models
 {
