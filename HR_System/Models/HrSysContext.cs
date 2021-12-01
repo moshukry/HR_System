@@ -256,10 +256,6 @@ namespace HR_System.Models
                     .HasMaxLength(150)
                     .HasColumnName("vacation_name");
             });
-
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
