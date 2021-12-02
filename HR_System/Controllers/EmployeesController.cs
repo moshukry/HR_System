@@ -19,23 +19,32 @@ namespace HR_System.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var employees = _context.Employees.Include(e => e.Dept);
-            return View(await employees.ToListAsync());
+            return View();
         }
-
+        // GET: AllEmployees 
+        public IActionResult allEmployees(string search)
+        {
+            if(search != null)
+            {
+                var emps = _context.Employees.Include(e => e.Dept).Where(e => e.EmpName.Contains(search));
+                return PartialView( emps.ToList());
+            }
+            var employees = _context.Employees.Include(e => e.Dept).ToList();
+            return PartialView( employees);
+        }
         // GET: Employees/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var employee = await _context.Employees
+            var employee = _context.Employees
                 .Include(e => e.Dept)
-                .FirstOrDefaultAsync(m => m.EmpId == id);
+                .FirstOrDefault(m => m.EmpId == id);
             if (employee == null)
             {
                 return NotFound();
@@ -47,7 +56,7 @@ namespace HR_System.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewData["DeptId"] = new SelectList(_context.Departments, "DeptId", "DeptId");
+            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptId");
             return View();
         }
 
