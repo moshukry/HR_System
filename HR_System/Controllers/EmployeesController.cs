@@ -56,24 +56,22 @@ namespace HR_System.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
-            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptId");
+            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName");
             return View();
         }
 
         // POST: Employees/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmpId,EmpName,Address,Phone,Gender,Nationality,Birthdate,NationalId,Hiredate,FixedSalary,AttTime,DepartureTime,DeptId")] Employee employee)
+        public IActionResult Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.SaveChanges();
+                return RedirectToAction("Index");
             }
-            ViewData["DeptId"] = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DeptId);
+            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
             return View(employee);
         }
 
