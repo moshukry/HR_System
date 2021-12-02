@@ -24,7 +24,7 @@ namespace HR_System.Models
                 entity.ToTable("Admin");
 
                 entity.Property(e => e.AdminId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("admin_id");
 
                 entity.Property(e => e.AdminName)
@@ -43,7 +43,7 @@ namespace HR_System.Models
                 entity.ToTable("Att_dep");
 
                 entity.Property(e => e.AttId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("att_id");
 
                 entity.Property(e => e.Attendance).HasColumnName("attendance");
@@ -68,7 +68,7 @@ namespace HR_System.Models
                 entity.ToTable("CRUD");
 
                 entity.Property(e => e.CrudId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("crud_id");
 
                 entity.Property(e => e.Add).HasColumnName("add");
@@ -103,7 +103,7 @@ namespace HR_System.Models
                 entity.ToTable("Department");
 
                 entity.Property(e => e.DeptId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("dept_id");
 
                 entity.Property(e => e.DeptName)
@@ -117,7 +117,7 @@ namespace HR_System.Models
 
                 entity.ToTable("Employee");
 
-                entity.Property(e => e.EmpId).HasColumnName("emp_id");
+                entity.Property(e => e.EmpId).ValueGeneratedOnAdd().HasColumnName("emp_id");
 
                 entity.Property(e => e.Address)
                     .HasMaxLength(50)
@@ -167,7 +167,7 @@ namespace HR_System.Models
             {
                 entity.ToTable("Group");
 
-                entity.Property(e => e.GroupId).HasColumnName("group_id");
+                entity.Property(e => e.GroupId).ValueGeneratedOnAdd().HasColumnName("group_id");
 
                 entity.Property(e => e.GroupName)
                     .HasMaxLength(50)
@@ -179,7 +179,7 @@ namespace HR_System.Models
                 entity.ToTable("Page");
 
                 entity.Property(e => e.PageId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("page_id");
 
                 entity.Property(e => e.PageName)
@@ -190,7 +190,7 @@ namespace HR_System.Models
             modelBuilder.Entity<Setting>(entity =>
             {
                 entity.Property(e => e.SettingId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("setting_id");
 
                 entity.Property(e => e.Dayoff1)
@@ -211,7 +211,7 @@ namespace HR_System.Models
                 entity.ToTable("User");
 
                 entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("user_id");
 
                 entity.Property(e => e.Email)
@@ -245,7 +245,7 @@ namespace HR_System.Models
                 entity.ToTable("Vacation");
 
                 entity.Property(e => e.VacId)
-                    .ValueGeneratedNever()
+                    .ValueGeneratedOnAdd()
                     .HasColumnName("vac_id");
 
                 entity.Property(e => e.VacationDate)
