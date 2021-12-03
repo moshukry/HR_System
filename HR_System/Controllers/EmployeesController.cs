@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HR_System.Models;
+//using System.Web.Mvc;
 
 namespace HR_System.Controllers
 {
@@ -52,7 +53,14 @@ namespace HR_System.Controllers
 
             return View(employee);
         }
-
+        
+        public JsonResult daterange(DateTime Birthdate)
+        {
+            DateTime dt = new DateTime(DateTime.Now.Year-20,DateTime.Now.Month,DateTime.Now.Day);
+            var result = DateTime.Compare(dt, Birthdate);
+            if (result == 1) return Json(true);
+            else return Json(false);
+        }
         // GET: Employees/Create
         public IActionResult Create()
         {
@@ -75,6 +83,7 @@ namespace HR_System.Controllers
             return View(employee);
         }
 
+
         // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -88,7 +97,7 @@ namespace HR_System.Controllers
             {
                 return NotFound();
             }
-            ViewData["DeptId"] = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DeptId);
+            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
             return View(employee);
         }
 
@@ -97,7 +106,7 @@ namespace HR_System.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmpId,EmpName,Address,Phone,Gender,Nationality,Birthdate,NationalId,Hiredate,FixedSalary,AttTime,DepartureTime,DeptId")] Employee employee)
+        public async Task<IActionResult> Edit(int id, Employee employee)
         {
             if (id != employee.EmpId)
             {
@@ -124,7 +133,7 @@ namespace HR_System.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DeptId"] = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DeptId);
+            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DeptId);
             return View(employee);
         }
 
