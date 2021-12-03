@@ -53,17 +53,26 @@ namespace HR_System.Controllers
 
             return View(employee);
         }
-        
-        public JsonResult daterange(DateTime Birthdate)
+        // Remote Validations for Employee BirthDate and HireDate...
+        public JsonResult birthdatecheck(DateTime Birthdate)
         {
             DateTime dt = new DateTime(DateTime.Now.Year-20,DateTime.Now.Month,DateTime.Now.Day);
-            var result = DateTime.Compare(dt, Birthdate);
-            if (result == 1) return Json(true);
+            var result = DateTime.Compare(Birthdate, dt);
+            if (result < 1) return Json(true);
             else return Json(false);
         }
+        public JsonResult hiredatecheck(DateTime Hiredate)
+        {
+            DateTime dt = new DateTime(2008,1,1);
+            var result = DateTime.Compare(Hiredate, dt);
+            if (result >= 0) return Json(true);
+            else return Json(false);
+        }
+
         // GET: Employees/Create
         public IActionResult Create()
         {
+            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" });
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName");
             return View();
         }
@@ -73,15 +82,16 @@ namespace HR_System.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Employee employee)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 _context.Add(employee);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
-            //}
-            //ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
-            //return View(employee);
         }
+            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" },employee.Gender);
+            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
+            return View(employee);
+}
 
 
         // GET: Employees/Edit/5
@@ -97,6 +107,7 @@ namespace HR_System.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" },employee.Gender);
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
             return View(employee);
         }
@@ -133,6 +144,7 @@ namespace HR_System.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" },employee.Gender);
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DeptId);
             return View(employee);
         }

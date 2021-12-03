@@ -4,161 +4,135 @@ ViewData["Title"] = "Create";
 }
 
 <section id="horizontal-form-layouts">
-<div class="row">
-	<div class="col-sm-12">
-		<h2 class="content-header">Add Employees</h2>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="card">
-			<div class="card-header">
-				<div class="card-title-wrap bar-success">
-					<h4 class="card-title" id="horz-layout-basic">Employee Information</h4>
-				</div>
-			</div>
-		<div class="card-body">
-	<div class="px-3">
-<form class="form form-horizontal" method="post">
-	<div class="form-body">
-		<h4 class="form-section">
-		<i class="icon-user"></i> Personal Details</h4>
-		<div class="form-group row">
-			<label class="col-md-3 label-control" for="projectinput1">First Name: </label>
-				<div class="col-md-9">
-					<input asp-for="EmpName" class="form-control" />
-					<span asp-validation-for="EmpName" class="text-danger"></span>
-				</div>
-		</div>
-		<div class="form-group row">
-			<label class="col-md-3 label-control" for="projectinput2">Address: </label>
-			<div class="col-md-9">
-				<input asp-for="Address" class="form-control" />
-				<span asp-validation-for="Address" class="text-danger"></span>
-			</div>
-		</div>
-						@*<div class="form-group row">
-						<label class="col-md-3 label-control" for="projectinput3">E-mail: </label>
-						<div class="col-md-9">
-						<input type="text" id="projectinput3" class="form-control" name="email">
-						</div>
-						</div>*@
-
-		<div class="form-group row">
-			<label class="col-md-3 label-control" for="projectinput4">Contact Number: </label>
-			<div class="col-md-9">
-				<input asp-for="Phone" class="form-control" />
-				<span asp-validation-for="Phone" class="text-danger"></span>
-			</div>
-		</div>
-
-	<h4 class="form-section">
-	<i class="icon-book-open"></i>Other Details</h4>
-
-	<div class="form-group row">
-		<label class="col-md-3 label-control" for="projectinput9">Department: </label>
-		<div class="col-md-9">
-			<div class="position-relative has-icon-left">
-				<select asp-for="DeptId" asp-items = "ViewBag.Depts" class=" form-control"></select>
-				<span asp-validation-for="DeptId" class="text-danger"></span>
-			</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h2 class="content-header">Add Employees</h2>
 		</div>
 	</div>
-
-	<div class="form-group row">
-		<label class="col-md-3 label-control" for="projectinput9">Birth Date: </label>
-		<div class="col-md-9">
-			<div class="position-relative has-icon-left">
-				<input asp-for="Birthdate" class="form-control" />
-				<span asp-validation-for="Birthdate" class="text-danger"></span>
-			</div>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-md-3 label-control" for="projectinput9">Gender: </label>
-		<div class="col-md-9">
-			<input asp-for="Gender" class="form-control" />
-			<span asp-validation-for="Gender" class="text-danger"></span>
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-md-3 label-control" for="projectinput10">Date of contract: </label>
-		<div class="col-md-9">
-			<input asp-for="Hiredate" class="form-control" />
-			<span asp-validation-for="Hiredate" class="text-danger"></span>
-		</div>
-	</div>
-	<div class=" row">
+	<div class="row">
 		<div class="col-md-12">
-			<div class=" row form-group">
-				<label class="col-md-3 label-control" >Start time: </label>
-				<div class="position-relative has-icon-left col-lg-9">
-					<input type="time" asp-for="AttTime" class="form-control" />
-					<span asp-validation-for="AttTime" class="text-danger"></span>		
+			<div class="card">
+				<div class="card-header">
+					<div class="card-title-wrap bar-success">
+						<h4 class="card-title" id="horz-layout-basic">Employee Information</h4>
+					</div>
 				</div>
-			</div>
-		</div>
-		<div class="col-md-12">
-			<div class=" row form-group">
-				<label class="col-md-3 label-control" >End time: </label>
-				<div class="position-relative has-icon-left col-lg-9">
-					<input type="time" asp-for="DepartureTime" class="form-control" />
-					<span asp-validation-for="DepartureTime" class="text-danger"></span>	
-				</div>
-			</div>
-		</div>
-	</div>
+				<div class="card-body">
+					<div class="px-3">
+						<form class="form form-horizontal" method="post">
+							<div class="form-body">
+								<h4 class="form-section">
+								<i class="icon-user"></i> Personal Details</h4>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput1">First Name: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="EmpName" class="text-danger"></span>
+										<input asp-for="EmpName" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput2">Address: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="Address" class="text-danger"></span>
+										<input asp-for="Address" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput4">Contact Number: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="Phone" class="text-danger"></span>
+										<input asp-for="Phone" type="text" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput9">Birth Date: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="Birthdate" class="text-danger"></span>
+										<input asp-for="Birthdate" type="date" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput9">Gender: </label>
+									<div class="col-md-9">
+										@*<input asp-for="Gender" class="form-control" />*@
+										<span asp-validation-for="Gender" class="text-danger"></span>
+										<select asp-for="Gender" asp-items="ViewBag.Gender" class="form-control"></select>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput11">National ID: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="NationalId" class="text-danger"></span>									
+										<input asp-for="NationalId" class="form-control" />
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput12">Nationality: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="Nationality" class="text-danger"></span>									
+										<input asp-for="Nationality" class="form-control" />
+									</div>
+								</div>
+								@*=================================================================*@
+								<h4 class="form-section">
+								<i class="icon-book-open"></i>Work Details</h4>
 
-	<div class="form-group row">
-		<label class="col-md-3 label-control" for="projectinput7">Salary: </label>
-		<div class="col-md-9">
-			<input asp-for="FixedSalary" class="form-control" />
-			<span asp-validation-for="FixedSalary" class="text-danger"></span>
-		</div>
-	</div>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput9">Department: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="DeptId" class="text-danger"></span>
+										<select asp-for="DeptId" asp-items = "ViewBag.Depts" class=" form-control"></select>
+									</div>
+								</div>
 
-						
-           
-	<div class="form-group row">
-		<label class="col-md-3 label-control" for="projectinput11">National ID: </label>
-		<div class="col-md-9">
-			<input asp-for="NationalId" class="form-control" />
-			<span asp-validation-for="NationalId" class="text-danger"></span>									
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-md-3 label-control" for="projectinput12">Nationality: </label>
-		<div class="col-md-9">
-			<input asp-for="Nationality" class="form-control" />
-			<span asp-validation-for="Nationality" class="text-danger"></span>									
-		</div>
-	</div>
-						@* <div class="form-group row">
-						<label class="col-md-3 label-control">Select File: </label>
-						<div class="col-md-9">
-						<label id="projectinput8" class="file center-block">
-						<input type="file" id="file">
-						<span class="file-custom"></span>
-						: </label>
-						</div>
-						</div>*@
-						@*<div class="form-group row">
-						<label class="col-md-3 label-control" for="projectinput9">Notes: </label>
-						<div class="col-md-9">
-						<textarea id="projectinput9" rows="5" class="form-control" name="comment"></textarea>
-						</div>
-						</div>*@
-	</div>
+		
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput10">Date of contract: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="Hiredate" class="text-danger"></span>
+										<input asp-for="Hiredate" type="date" class="form-control" />
+									</div>
+								</div>
+								<div class=" row">
+									<div class="col-md-12">
+										<div class=" row form-group">
+											<label class="col-md-3 label-control" >Start time: </label>
+											<div class="position-relative has-icon-left col-lg-9">
+												<span asp-validation-for="AttTime" class="text-danger"></span>		
+												<input type="time" asp-for="AttTime" class="form-control" />
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class=" row form-group">
+											<label class="col-md-3 label-control" >End time: </label>
+											<div class="position-relative has-icon-left col-lg-9">
+												<span asp-validation-for="DepartureTime" class="text-danger"></span>	
+												<input type="time" asp-for="DepartureTime" class="form-control" />
+											</div>
+										</div>
+									</div>
+								</div>
 
-	<div class="form-actions">
-		<button asp-action="index" class="btn btn-danger mr-1">
-			<i class="icon-trash"></i> Cancel
-		</button>
-		<button type="submit" class="btn btn-success">
-			<i class="icon-note"></i> Save
-		</button>
-	</div>
-</form>
+								<div class="form-group row">
+									<label class="col-md-3 label-control" for="projectinput7">Salary: </label>
+									<div class="col-md-9">
+										<span asp-validation-for="FixedSalary" class="text-danger"></span>
+										<input asp-for="FixedSalary" class="form-control" />
+									</div>
+								</div>
+
+								<hr />
+								<div class="">
+									<button asp-action="index" class="btn btn-danger mr-1">
+										<i class="icon-trash"></i> Cancel
+									</button>
+									<button type="submit" class="btn btn-success">
+										<i class="icon-note"></i> Save
+									</button>
+								</div>
+								</div>
+						</form>
 					</div>
 				</div>
 			</div>

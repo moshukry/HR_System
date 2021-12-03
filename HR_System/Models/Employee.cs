@@ -12,25 +12,32 @@ namespace HR_System.Models
         [Required(ErrorMessage ="*")]
         public int EmpId { get; set; }
 
-        [Required(ErrorMessage = "*")]
-        [StringLength(100,MinimumLength =3,ErrorMessage ="less than 3")]
-        public string EmpName { get; set; } = null!;
 
         [Required(ErrorMessage = "*")]
+        [StringLength(100,MinimumLength =3,ErrorMessage ="Name must be between 3 and 100 characters")]
+        public string EmpName { get; set; } = null!;
+
+
+        [Required(ErrorMessage = "*")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "Address must be between 3 and 150 characters")]
         public string Address { get; set; } = null!;
 
         [Required(ErrorMessage = "*")]
-        [RegularExpression("^1[0-2]{1}[0-9]{8}", ErrorMessage ="Invalid Phone Number")]
-        public int Phone { get; set; }
+        [RegularExpression("^01[0-2]{1}[0-9]{8}", ErrorMessage ="Please Insert a valid Phone Number")]
+        [Phone]
+        public string Phone { get; set; }
 
-        [Required(ErrorMessage = "*")]
+
         public string Gender { get; set; } = null!;
 
-        [Required(ErrorMessage = "*")]
-        public string Nationality { get; set; } = null!;
 
         [Required(ErrorMessage = "*")]
-        [Remote("daterange", "employees",ErrorMessage ="Emp must be greatear than twenty")]
+        [RegularExpression("^[a-zA-Z ]*$",ErrorMessage ="Invalid Nationality")]
+        public string Nationality { get; set; } = null!;
+
+
+        [Required(ErrorMessage = "*")]
+        [Remote("birthdatecheck", "employees",ErrorMessage ="Employee age must be greatear than 20")]
         public DateTime Birthdate { get; set; }
 
 
@@ -38,14 +45,19 @@ namespace HR_System.Models
         [RegularExpression("^[0-9]{14}$",ErrorMessage ="Invalid.. must be 14 degit number")]
         public string NationalId { get; set; } = null!;
 
+
         [Required(ErrorMessage = "*")]
+        [Remote("hiredatecheck","Employees",ErrorMessage ="Please Insert a Valid Hire Date")]
         public DateTime Hiredate { get; set; }
+
 
         [Required(ErrorMessage = "*")]
         public int FixedSalary { get; set; }
 
+
         [Required(ErrorMessage = "*")]
         public TimeSpan AttTime { get; set; }
+
 
         [Required(ErrorMessage = "*")]
         public TimeSpan DepartureTime { get; set; }
