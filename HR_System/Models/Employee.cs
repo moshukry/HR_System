@@ -13,6 +13,7 @@ namespace HR_System.Models
         public int EmpId { get; set; }
 
         [Required(ErrorMessage = "*")]
+        [StringLength(100,MinimumLength =3,ErrorMessage ="less than 3")]
         public string EmpName { get; set; } = null!;
 
         [Required(ErrorMessage = "*")]

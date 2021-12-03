@@ -73,14 +73,14 @@ namespace HR_System.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Employee employee)
         {
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(employee);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
-            return View(employee);
+            //}
+            //ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
+            //return View(employee);
         }
 
 
@@ -144,28 +144,28 @@ namespace HR_System.Controllers
             {
                 return NotFound();
             }
+            var employee = await _context.Employees.FindAsync(id);
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
 
-            var employee = await _context.Employees
-                .Include(e => e.Dept)
-                .FirstOrDefaultAsync(m => m.EmpId == id);
             if (employee == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
-        }
-
-        // POST: Employees/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        //// POST: Employees/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var employee = await _context.Employees.FindAsync(id);
+        //    _context.Employees.Remove(employee);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool EmployeeExists(int id)
         {

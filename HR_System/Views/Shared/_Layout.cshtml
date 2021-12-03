@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HR_System</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
     <link rel="stylesheet" href="~/HR_System.styles.css" asp-append-version="true" />
     <link rel="apple-touch-icon" sizes="60x60" href="~/img/ico/apple-icon-60.html">
     <link rel="apple-touch-icon" sizes="76x76" href="~/img/ico/apple-icon-76.html">
@@ -23,6 +23,7 @@
     <link rel="stylesheet" type="text/css" href="~/vendors/css/prism.min.css">
     <link rel="stylesheet" type="text/css" href="~/vendors/css/chartist.min.css">
     <link rel="stylesheet" type="text/css" href="~/css/app.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 
@@ -415,6 +416,7 @@
     <script src="~/js/notification-sidebar.js"></script>
     <script src="~/js/customizer.js"></script>
     @*<script src="~/js/dashboard-ecommerce.js"></script>*@
+    <partial name="_ValidationScriptsPartial"></partial>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
