@@ -7,14 +7,15 @@ namespace HR_System.Controllers
 {
     public class AttendanceController : Controller
     {
-        HrSysContext db;
+        private HrSysContext db;
         public AttendanceController(HrSysContext db)
         {
             this.db = db;
         }
         public IActionResult Index()
         {
-            return View();
+            
+            return View(db.Att_dep.ToList());
         }
     }
 }
