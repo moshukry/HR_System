@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HR_System.Migrations
 {
     [DbContext(typeof(HrSysContext))]
-    [Migration("20211202002727_2nd1stupload")]
-    partial class _2nd1stupload
+    [Migration("20211203223946_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

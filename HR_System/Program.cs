@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<HrSysContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("hrcon")));
+builder.Services.AddDbContext<HrSysContext>(option => option.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("hrcon")));
 
 var app = builder.Build();
 
