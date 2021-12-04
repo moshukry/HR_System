@@ -120,7 +120,7 @@ namespace HR_System.Models
                 entity.Property(e => e.EmpId).ValueGeneratedOnAdd().HasColumnName("emp_id");
 
                 entity.Property(e => e.Address)
-                    .HasMaxLength(50)
+                    .HasMaxLength(150)
                     .HasColumnName("address");
 
                 entity.Property(e => e.AttTime).HasColumnName("att_time");
@@ -134,7 +134,7 @@ namespace HR_System.Models
                 entity.Property(e => e.DeptId).HasColumnName("dept_id");
 
                 entity.Property(e => e.EmpName)
-                    .HasMaxLength(50)
+                    .HasMaxLength(150)
                     .HasColumnName("emp_name");
 
                 entity.Property(e => e.FixedSalary).HasColumnName("fixed_salary");
