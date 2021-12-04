@@ -11,7 +11,7 @@ namespace HR_System.Models
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Enter 3  or More Characters !")]
         [Required(ErrorMessage = "* User Name Is Required !")]
         [Display(Name = "User Name")]
-        [RegularExpression(@"^[^\W\d_]+$" , ErrorMessage ="Enter Characters Only")]
+        //[RegularExpression(@"^[^\W\d_]+$" , ErrorMessage ="Enter Characters Only")]
         public string Username { get; set; } = null!;
         [Required(ErrorMessage = "* Email Is Required")]
         [EmailAddress(ErrorMessage = "Enter A Valid Email Address !")]
