@@ -12,7 +12,7 @@ namespace HR_System.Models
         [Required(ErrorMessage ="*")]
         public int EmpId { get; set; }
 
-        
+
         [Required(ErrorMessage = "*")]
         [StringLength(100,MinimumLength =3,ErrorMessage ="Name must be between 3 and 100 characters")]
         public string EmpName { get; set; } = null!;
@@ -41,7 +41,7 @@ namespace HR_System.Models
         public DateTime Birthdate { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage ="*")]
         [RegularExpression("^[0-9]{14}$",ErrorMessage ="Invalid.. must be 14 degit number")]
         public string NationalId { get; set; } = null!;
 
@@ -54,12 +54,13 @@ namespace HR_System.Models
         [Required(ErrorMessage = "*")]
         public int FixedSalary { get; set; }
 
-
+        [Remote("DeptTimeCheck","employees")]
         [Required(ErrorMessage = "*")]
         public TimeSpan AttTime { get; set; }
 
 
         [Required(ErrorMessage = "*")]
+        [Remote("DeptTimeCheck", "employees", ErrorMessage = "Departure time Must be after attendance time!")]
         public TimeSpan DepartureTime { get; set; }
         public int? DeptId { get; set; }
 
