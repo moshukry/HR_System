@@ -218,9 +218,7 @@ namespace HR_System.Models
                     .HasMaxLength(150)
                     .HasColumnName("email");
 
-                entity.Property(e => e.FullName)
-                    .HasMaxLength(250)
-                    .HasColumnName("full_name");
+               
 
                 entity.Property(e => e.GroupId).HasColumnName("group_id");
 
