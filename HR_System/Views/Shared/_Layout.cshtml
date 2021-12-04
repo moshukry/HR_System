@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     
     <link rel="stylesheet" href="~/HR_System.styles.css" asp-append-version="true" />
+
     <link rel="apple-touch-icon" sizes="60x60" href="~/img/ico/apple-icon-60.html">
     <link rel="apple-touch-icon" sizes="76x76" href="~/img/ico/apple-icon-76.html">
     <link rel="apple-touch-icon" sizes="120x120" href="~/img/ico/apple-icon-120.html">
@@ -23,7 +24,10 @@
     <link rel="stylesheet" type="text/css" href="~/vendors/css/prism.min.css">
     <link rel="stylesheet" type="text/css" href="~/vendors/css/chartist.min.css">
     <link rel="stylesheet" type="text/css" href="~/css/app.css">
+
+
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
 </head>
 <body data-col="2-columns" class=" 2-columns ">
 
@@ -44,9 +48,9 @@
                 <li class="has-sub nav-item">
                    <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title"> Employees</span></a>
                    <ul class="menu-content">
-                      <li><a href="employees.html" class="menu-item"> <i class="icon-bar"></i> Employees Statistics</a>
+                      <li><a asp-action="Index" asp-controller="Employees" class="menu-item"> <i class="icon-bar"></i> Employees Statistics</a>
                       </li>
-                      <li><a href="add_employee.html" class="menu-item">Add Employee</a>
+                      <li><a asp-action="Create" asp-controller="Employees" class="menu-item">Add Employee</a>
                       </li>
                    </ul>
                 </li>
@@ -60,9 +64,9 @@
                 </li>
                 <li class=" nav-item"><a href="salary_report.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
                 </li>
-                <li class=" nav-item"><a href="users.html"><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
+                <li class=" nav-item"><a asp-action="Index" asp-controller="user" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
                 </li>
-                <li class=" nav-item"><a href="permissions.html"><i class="icon-equalizer"></i><span data-i18n="" class="menu-title">Permissions</span></a>
+                <li class=" nav-item"><a asp-action="Index" asp-controller="group"><i class="icon-equalizer"></i><span data-i18n="" class="menu-title">Permissions</span></a>
                 </li>
              
                 <li class=" nav-item"><a href="login.html"><i class="icon-pin"></i><span data-i18n="" class="menu-title">Login Page </span></a>
@@ -140,9 +144,9 @@
           </div>
         </div>
 
-        <footer class="footer footer-static footer-light">
+       @* <footer class="footer footer-static footer-light">
           <p class="clearfix text-muted text-center px-2"><span>Copyright  © 2021 <a href="#" id="pixinventLink" target="_blank" class="text-bold-800 primary darken-2">Pioneer solutions </a>, All rights reserved. </span></p>
-        </footer>
+        </footer>*@
 
       </div>
     </div>
@@ -365,6 +369,8 @@
       </div>
     </div>
 
+
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -377,12 +383,24 @@
     <script src="~/vendors/js/jquery.matchHeight-min.js"></script>
     <script src="~/vendors/js/screenfull.min.js"></script>
     <script src="~/vendors/js/pace/pace.min.js"></script>
-    @*<script src="~/vendors/js/chartist.min.js"></script>*@
+
+    
     <script src="~/js/app-sidebar.js"></script>
     <script src="~/js/notification-sidebar.js"></script>
     <script src="~/js/customizer.js"></script>
-    @*<script src="~/js/dashboard-ecommerce.js"></script>*@
-    <partial name="_ValidationScriptsPartial"></partial>
-    @await RenderSectionAsync("Scripts", required: false)
+   @*<script src="~/js/dashboard-ecommerce.js"></script>*@
+   <partial name="_ValidationScriptsPartial"></partial>
+
+ @await RenderSectionAsync("Scripts", required: false)
+ 
+
+   
+   
+   
+    
+   
+
 </body>
 </html>
+
+
