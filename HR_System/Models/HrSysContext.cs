@@ -17,6 +17,8 @@ namespace HR_System.Models
         public virtual DbSet<Setting> Settings { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
         public virtual DbSet<Vacation> Vacations { get; set; } = null!;
+        public object Employee { get; internal set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Admin>(entity =>
