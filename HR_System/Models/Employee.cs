@@ -12,7 +12,7 @@ namespace HR_System.Models
         [Required(ErrorMessage ="*")]
         public int EmpId { get; set; }
 
-
+        
         [Required(ErrorMessage = "*")]
         [StringLength(100,MinimumLength =3,ErrorMessage ="Name must be between 3 and 100 characters")]
         public string EmpName { get; set; } = null!;

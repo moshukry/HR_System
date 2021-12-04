@@ -25,15 +25,24 @@ namespace HR_System.Controllers
             return View();
         }
         // GET: AllEmployees 
-        public IActionResult allEmployees(string search)
+        public IActionResult allEmployees(string search,int show)
         {
+            var employees = _context.Employees.Include(e => e.Dept).ToList();
+            if (search != null && show != 0)
+            {
+                var emps = employees.Where(e => e.EmpName.Contains(search)).Take(show);
+                return PartialView(emps);
+            }
             if(search != null)
             {
                 var emps = _context.Employees.Include(e => e.Dept).Where(e => e.EmpName.Contains(search));
-                return PartialView( emps.ToList());
+                return PartialView( emps);
             }
-            var employees = _context.Employees.Include(e => e.Dept).ToList();
-            return PartialView( employees);
+            if(show != 0)
+            {
+                return PartialView(employees.Take(show));
+            }
+            return PartialView( employees.Take(10));
         }
         // GET: Employees/Details/5
         public IActionResult Details(int? id)
@@ -157,13 +166,13 @@ namespace HR_System.Controllers
                 return NotFound();
             }
             var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
-
             if (employee == null)
             {
                 return NotFound();
             }
+            _context.Employees.Remove(employee);
+            await _context.SaveChangesAsync();
+
 
             return RedirectToAction(nameof(Index));
         }
