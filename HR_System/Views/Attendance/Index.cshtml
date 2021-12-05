@@ -30,8 +30,10 @@
                                 </div>*@
 
                                 <form>
-                                    <label>Employee Name: @Html.TextBox("Search") <input type="submit" value="Search" class="btn btn-success" /></label>
+                                    <label>Employee Name: @Html.TextBox("Search")  <div class="col-lg-3"><button type="submit" class="btn btn-primary mb-2"> <i class="ft-search"></i>&nbsp;
+                                     Search Employee</button></div></label>
                                 </form>
+                               
                                 <div class="col-lg-3"><button id="addRow" class="btn btn-primary mr-1"> <i class="ft-plus"></i>&nbsp;
                                    <a asp-action="Create"> Add Employee Att</a></button></div>
                                  @* <div>
