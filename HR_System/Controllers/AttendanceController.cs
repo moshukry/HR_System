@@ -15,37 +15,17 @@ namespace HR_System.Controllers
 		public IActionResult Index(string? search)
 		{
 			ViewBag.Emp = new SelectList(db.Employees.ToList(), "EmpId", "EmpName");
-			//return View(db.Att_dep.ToList());
-
-			//var att = db.Att_dep.Include(n=>n.AttId).ToList();
-			//var employees = db.Employees.Include(e => e.Dept).ToList();
+			
 			if (search != null)
 			{
-				//var att1 = db.Att_dep.Include(n => n.AttId).ToList();
+				
 				var att1 = db.Att_dep.Where(n=>n.Emp.EmpName.Contains(search));
-				//var emps = employees.Where(e => e.EmpName.Contains(search));
+				
 				return View(att1);
 			}
 
 			return View(db.Att_dep.ToList());
 		}
-		//public IActionResult Index(string? search)
-		//{
-		//	ViewBag.Emp = new SelectList(db.Employees.ToList(), "EmpId", "EmpName");
-		//	//return View(db.Att_dep.ToList());
-
-		//	//var att = db.Att_dep.Include(n=>n.AttId).ToList();
-		//	//var employees = db.Employees.Include(e => e.Dept).ToList();
-		//	if (search != null)
-		//	{
-		//		//var att1 = db.Att_dep.Include(n => n.AttId).ToList();
-		//		var att1 = db.Att_dep.Where(n=>n.Emp.EmpName.Contains(search));
-		//		//var emps = employees.Where(e => e.EmpName.Contains(search));
-		//		return View(att1);
-		//	}
-
-		//	return View(db.Att_dep.ToList());
-		//}
 		public ActionResult Delete(int? id)
         {
             if (id != null)
