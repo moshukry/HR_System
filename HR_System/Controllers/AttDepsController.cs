@@ -140,16 +140,16 @@ namespace HR_System.Controllers
             return View(attDep);
         }
 
-        // POST: AttDeps/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var attDep = await _context.Att_dep.FindAsync(id);
-            _context.Att_dep.Remove(attDep);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //POST: AttDeps/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var attDep = await _context.Att_dep.FindAsync(id);
+        //    _context.Att_dep.Remove(attDep);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
         private bool AttDepExists(int id)
         {
