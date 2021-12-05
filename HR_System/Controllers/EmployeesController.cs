@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HR_System.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace HR_System.Controllers
 {

@@ -1,22 +1,27 @@
-﻿@model IEnumerable<HR_System.Models.Employee>
+﻿@*@using PagedList.Core.Mvc
+@using PagedList.Core*@
+@*@using PagedList
+*@@*@using PagedList.Mvc
+*@
+@model List<Employee>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.EmpName)
+                @Html.DisplayNameFor(model => model[0].EmpName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FixedSalary)
+                @Html.DisplayNameFor(model => model[0].FixedSalary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AttTime)
+                @Html.DisplayNameFor(model => model[0].AttTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DepartureTime)
+                @Html.DisplayNameFor(model => model[0].DepartureTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dept)
+                @Html.DisplayNameFor(model => model[0].Dept)
             </th>
             <th></th>
         </tr>
@@ -48,6 +53,6 @@
         }
     </tbody>
 </table>
-
-
+@*@Html.PagedListPager(Model,n=>  Url.Action("index",new {pageno = n}))
+*@
 
