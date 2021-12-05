@@ -8,8 +8,8 @@ namespace HR_System.Models
         public int AttId { get; set; }
         public int EmpId { get; set; }
         public DateTime Date { get; set; }
-        public TimeSpan? Attendance { get; set; }
-        public TimeSpan? Departure { get; set; }
+        public TimeSpan? Attendance { get; set; } = null!;
+        public TimeSpan? Departure { get; set; } = null!;
 
         public virtual Employee Emp { get; set; } = null!;
     }

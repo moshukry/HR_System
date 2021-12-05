@@ -1,0 +1,43 @@
+﻿@model HR_System.Models.AttDep
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>AttDep</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Attendance)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Attendance)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Departure)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Departure)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Emp)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Emp.EmpId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.AttId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
