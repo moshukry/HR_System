@@ -12,22 +12,41 @@ namespace HR_System.Controllers
 		{
 			this.db = db;
 		}
-		public IActionResult Index(string search,int date)
+		public IActionResult Index(string? search)
 		{
 			ViewBag.Emp = new SelectList(db.Employees.ToList(), "EmpId", "EmpName");
-			ViewBag.search = search;
-			if(date > 0)
-            {
-				return View(db.Att_dep.Where(n => n.Date.Equals(date)));
+			//return View(db.Att_dep.ToList());
+
+			//var att = db.Att_dep.Include(n=>n.AttId).ToList();
+			//var employees = db.Employees.Include(e => e.Dept).ToList();
+			if (search != null)
+			{
+				//var att1 = db.Att_dep.Include(n => n.AttId).ToList();
+				var att1 = db.Att_dep.Where(n=>n.Emp.EmpName.Contains(search));
+				//var emps = employees.Where(e => e.EmpName.Contains(search));
+				return View(att1);
 			}
-			if (!string.IsNullOrEmpty(search))
-            {
-				return View(db.Employees.Where(n => n.EmpName.Contains(search)).OrderBy(n=>n.EmpId));
-            }
+
 			return View(db.Att_dep.ToList());
 		}
+		//public IActionResult Index(string? search)
+		//{
+		//	ViewBag.Emp = new SelectList(db.Employees.ToList(), "EmpId", "EmpName");
+		//	//return View(db.Att_dep.ToList());
 
-        public ActionResult Delete(int? id)
+		//	//var att = db.Att_dep.Include(n=>n.AttId).ToList();
+		//	//var employees = db.Employees.Include(e => e.Dept).ToList();
+		//	if (search != null)
+		//	{
+		//		//var att1 = db.Att_dep.Include(n => n.AttId).ToList();
+		//		var att1 = db.Att_dep.Where(n=>n.Emp.EmpName.Contains(search));
+		//		//var emps = employees.Where(e => e.EmpName.Contains(search));
+		//		return View(att1);
+		//	}
+
+		//	return View(db.Att_dep.ToList());
+		//}
+		public ActionResult Delete(int? id)
         {
             if (id != null)
             {
@@ -48,57 +67,26 @@ namespace HR_System.Controllers
 		public IActionResult Create()
 		{
 			ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpName");
-			//ViewBag.Emp = new SelectList(db.Employees, "EmpId", "EmpName");
 			return View();
 		}
 
 		// POST: AttDeps/Create
 		[HttpPost]
-		//[ValidateAntiForgeryToken]
+		[ValidateAntiForgeryToken]
 		public  IActionResult Create([Bind("AttId,EmpId,Date,Attendance,Departure")]  AttDep attDep)
 		{
-			ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpId", attDep.EmpId);
-			//ViewBag.AttDep = attDep;
-			//if (ModelState.IsValid)
-			//{
-			db.Add(attDep);
+			ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpName", attDep.EmpId);
+            //if (ModelState.IsValid)
+            //{
+                db.Add(attDep);
 				db.SaveChanges();
 				return RedirectToAction("Index");
-			//}
-			
-			//return View(attDep);
-		}
-
-
-
-
-
-
-		//public IActionResult Create(AttDep a)
-		//{
-		//    //db.Att_dep.Add(a);
-		//    //db.SaveChanges();
-		//    return RedirectToAction("Index");
-		//}
-
-		//      [HttpPost]
-		//[ValidateAntiForgeryToken]
-		//public async Task<IActionResult> Create([Bind("AttId,EmpId,Date,Attendance,Departure")] AttDep attDep)
-		//{
-		//	if (ModelState.IsValid)
-		//	{
-		//		db.Add(attDep);
-		//		await db.SaveChangesAsync();
-		//		return RedirectToAction(nameof(Index));
-		//	}
-		//	ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpId", attDep.EmpId);
-		//	return View(attDep);
-		//}
+            //}
+            //return View(attDep);
+        }
 		public IActionResult Cancel()
 		{
 			return RedirectToAction("Index");
 		}
-		//<a asp-action="Cancel"  class="btn btn-danger mr-1 icon-trash" >  Cancel</a>
-  //   <a asp-action="Create" class="btn btn-success mr-1 icon-note" >  Save</a>
 	}
 }
