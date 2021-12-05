@@ -1,6 +1,10 @@
 ﻿@model IEnumerable<AttDep>
 
 
+<section id="configuration">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
 <div class="card-header">
                     <div class="card-title-wrap bar-success">
                         <h4 class="card-title">Attendance and departure request</h4>
@@ -10,16 +14,17 @@
                     <div class="card-block card-dashboard">
                         <p class="card-text">DataTables has most features enabled by default, 
                             so all you need to do to use it with your own ables is to call the construction</p>
-                           
-                            @*<div class="row"><div class="col-sm-12 col-md-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show Date
+                            <div class="row"><div class="col-sm-12 col-md-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label>Show Date
                                 <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-control form-control-sm">
                                     <option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">
-                                        100</option></select> </label></div></div>*@
+                                        100</option></select> </label></div></div>
                                       <div class="col-lg-1"></div> 
-                                        @*<div class="col-sm-12 col-md-5"><div id="DataTables_Table_0_filter"
+                                        <div class="col-sm-12 col-md-5"><div id="DataTables_Table_0_filter"
                                              class="dataTables_filter"><label>Employee Name:<input type="search" 
-                                class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div>*@
-                                  <div>
+                                class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div>
+                                <div class="col-lg-3"><button id="addRow" class="btn btn-primary mb-2"> <i class="ft-plus"></i>&nbsp;
+                                   <a asp-action="Create"> Add Employee Att</a></button></div>
+                                 @* <div>
                                     <form>
                                         <span>Show Date :</span>
                                         @Html.TextBox("date")<input type="submit" class="btn glyphicon-search" />
@@ -30,7 +35,7 @@
                                         <span>Employee Name :</span>
                                         @Html.TextBox("search")<input type="submit" class="btn glyphicon-search" />
                                     </form>
-                                </div>
+                                </div>*@
                             </div> 
                             </div>
                             </div>
@@ -69,13 +74,16 @@
                 @Html.DisplayFor(modelItem => item.Departure)
             </td>
             <td>
-                <a asp-action="Delete" asp-route-id="@item.AttId" class="btn btn-danger mr-1 icon-trash" onclick="return confirm('Are u sure to delete'+'@item.Emp.EmpName')" >  Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.AttId" class="btn btn-danger mr-1 icon-trash" onclick="return confirm('Are u sure to delete '+'@item.Emp.EmpName'+' ?')" >  Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
-
+          </div>
+        </div>
+    </div>
+</section>
 
 
 @*<partial name="Create">*@
@@ -84,3 +92,4 @@
 @*@Html.Partial("Create")*@
 
 @*<partial name="_ProductPartial" for="Create">*@
+

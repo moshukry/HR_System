@@ -44,15 +44,42 @@ namespace HR_System.Controllers
 			
 		}
 
-        [HttpPost]
-        public IActionResult Create(AttDep a)
-        {
-            db.Att_dep.Add(a);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+		// GET: AttDeps/Create
+		public IActionResult Create()
+		{
+			ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpName");
+			//ViewBag.Emp = new SelectList(db.Employees, "EmpId", "EmpName");
+			return View();
+		}
 
-  //      [HttpPost]
+		// POST: AttDeps/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public  IActionResult Create([Bind("AttId,EmpId,Date,Attendance,Departure")] AttDep attDep)
+		{
+            if (ModelState.IsValid)
+            {
+                db.Add(attDep);
+				db.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpId", attDep.EmpId);
+			return View(attDep);
+		}
+
+
+
+
+
+
+		//public IActionResult Create(AttDep a)
+		//{
+		//    //db.Att_dep.Add(a);
+		//    //db.SaveChanges();
+		//    return RedirectToAction("Index");
+		//}
+
+		//      [HttpPost]
 		//[ValidateAntiForgeryToken]
 		//public async Task<IActionResult> Create([Bind("AttId,EmpId,Date,Attendance,Departure")] AttDep attDep)
 		//{

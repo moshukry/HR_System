@@ -47,7 +47,8 @@ namespace HR_System.Controllers
         // GET: AttDeps/Create
         public IActionResult Create()
         {
-            ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpId");
+            //ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpName");
+            ViewBag.Emp = new SelectList(_context.Employees, "EmpId", "EmpName");
             return View();
         }
 
