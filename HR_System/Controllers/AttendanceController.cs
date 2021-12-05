@@ -54,17 +54,19 @@ namespace HR_System.Controllers
 
 		// POST: AttDeps/Create
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public  IActionResult Create([Bind("AttId,EmpId,Date,Attendance,Departure")] AttDep attDep)
+		//[ValidateAntiForgeryToken]
+		public  IActionResult Create([Bind("AttId,EmpId,Date,Attendance,Departure")]  AttDep attDep)
 		{
-            if (ModelState.IsValid)
-            {
-                db.Add(attDep);
+			ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpId", attDep.EmpId);
+			//ViewBag.AttDep = attDep;
+			//if (ModelState.IsValid)
+			//{
+			db.Add(attDep);
 				db.SaveChanges();
 				return RedirectToAction("Index");
-			}
-			ViewData["EmpId"] = new SelectList(db.Employees, "EmpId", "EmpId", attDep.EmpId);
-			return View(attDep);
+			//}
+			
+			//return View(attDep);
 		}
 
 

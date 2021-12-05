@@ -47,8 +47,8 @@ namespace HR_System.Controllers
         // GET: AttDeps/Create
         public IActionResult Create()
         {
-            //ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpName");
-            ViewBag.Emp = new SelectList(_context.Employees, "EmpId", "EmpName");
+            ViewData["EmpId"] = new SelectList(_context.Employees, "EmpId", "EmpName");
+            //ViewBag.Emp = new SelectList(_context.Employees, "EmpId", "EmpName");
             return View();
         }
 
@@ -56,7 +56,7 @@ namespace HR_System.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AttId,EmpId,Date,Attendance,Departure")] AttDep attDep)
         {
             if (ModelState.IsValid)
