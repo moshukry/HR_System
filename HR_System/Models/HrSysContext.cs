@@ -4,6 +4,10 @@ namespace HR_System.Models
 {
     public class HrSysContext : DbContext
     {
+        public HrSysContext()
+        {
+        }
+
         public HrSysContext(DbContextOptions<HrSysContext> option) : base(option)
         {
         }
