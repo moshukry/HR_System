@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HR_System.Migrations
 {
-    public partial class _2nd1stupload : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -100,7 +100,7 @@ namespace HR_System.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     emp_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    phone = table.Column<int>(type: "int", nullable: false),
+                    phone = table.Column<string>(type: "nvarchar(11)", nullable: false),
                     gender = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     nationality = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     birthdate = table.Column<DateTime>(type: "date", nullable: false),

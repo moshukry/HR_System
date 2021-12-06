@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HR_System.Models
 {
@@ -12,6 +13,7 @@ namespace HR_System.Models
         }
 
         public int GroupId { get; set; }
+        [Display(Name = "Group Name")]
         public string GroupName { get; set; } = null!;
 
         public virtual ICollection<Crud> Cruds { get; set; }
