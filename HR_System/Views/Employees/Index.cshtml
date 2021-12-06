@@ -24,19 +24,19 @@
     </div>
 </div> 
 
-<div id="renderemp">
-   @* <partial name="allemployees" />*@
+<div id="renderemployees">
+
 </div>
 @section scripts{
     <script>
         $(function(){
-            $("#renderemp").load("employees/allemployees")
+            $("#renderemployees").load("employees/allemployees")
         })
         $("#srch").on("keyup",function(){
-            $("#renderemp").load("employees/allemployees?search="+$("#srch").val())
+            $("#renderemployees").load("employees/allemployees?search="+$("#srch").val())
         })
         $("#show").on("change",function(){
-             $("#renderemp").load("employees/allemployees?show="+$("#show").val()+"&search="+$("#srch").val())
+             $("#renderemployees").load("employees/allemployees?show="+$("#show").val()+"&search="+$("#srch").val())
         })
     </script>
 }

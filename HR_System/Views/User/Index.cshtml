@@ -27,12 +27,26 @@
                                              class="dataTables_filter"><label>Search:<input type="search" 
                                 class="form-control form-control-sm" placeholder="" aria-controls="DataTables_Table_0"></label></div></div>
                                 <div class="col-lg-1"></div>
-                                <div class="col-lg-3"><button id="addRow" class="btn btn-primary mb-2"> <i class="ft-plus"></i>&nbsp;
+                                <div class="col-lg-3">
                                   
-                      @*  Add New User tag  helper  *@   
-                             
-                                <a asp-action="addUser" asp-controller="User" >  Add new User</a></button></div>
-                            </div> 
+                      @*  Add New User tag  helper  *@  
+                                @if(ViewBag.admin != null)
+                                {
+                                    <button id="addRow" class="btn btn-primary mb-2">
+                                    <i class="ft-plus"></i>&nbsp;
+                                    <a asp-action="addUser" asp-controller="User" >  Add new User</a>
+                                    </button>
+                                }else{
+                                @if (ViewBag.groupId.Add)
+                                    {
+                                    <button id="addRow" class="btn btn-primary mb-2">
+                                        <i class="ft-plus"></i>&nbsp;
+                                    <a asp-action="addUser" asp-controller="User" >  Add new User</a>
+                                    </button>
+                                    }
+                                }
+                                </div>
+                        </div> 
                         <table class="table table-striped table-bordered zero-configuration">
                             <thead>
                                 <tr>
