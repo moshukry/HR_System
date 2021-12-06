@@ -28,6 +28,7 @@ namespace HR_System.Controllers
         // GET: AllEmployees 
         public IActionResult allEmployees(string search,int show)
         {
+            //ViewBag.gid = "ahmed";
             var employees = _context.Employees.Include(e => e.Dept).ToList();
             if (search != null && show != 0)
             {

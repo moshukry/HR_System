@@ -1,27 +1,22 @@
-﻿@*@using PagedList.Core.Mvc
-@using PagedList.Core*@
-@*@using PagedList
-*@@*@using PagedList.Mvc
-*@
-@model List<Employee>
+﻿@model IEnumerable<HR_System.Models.Employee>
 
 <table class="table table-striped">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model[0].EmpName)
+                @Html.DisplayNameFor(model => model.EmpName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].FixedSalary)
+                @Html.DisplayNameFor(model => model.FixedSalary)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].AttTime)
+                @Html.DisplayNameFor(model => model.AttTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].DepartureTime)
+                @Html.DisplayNameFor(model => model.DepartureTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model[0].Dept)
+                @Html.DisplayNameFor(model => model.Dept)
             </th>
             <th></th>
         </tr>
@@ -44,11 +39,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Dept.DeptName)
                 </td>
-                <td>
+                @if (ViewBag.gid != null)
+                {
+                    <td>
                     <a asp-action="details" asp-route-id="@item.EmpId" class="btn btn-info">Details</a> |
                     <a asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-success">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger" onclick = "return confirm('Are You Sure to delete '+'@item.EmpName '+'?')"><i class="icon-trash"></i> Delete</a>
-                </td>
+                    </td>
+                }
             </tr>
         }
     </tbody>
