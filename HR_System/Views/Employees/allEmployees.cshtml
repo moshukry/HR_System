@@ -39,15 +39,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Dept.DeptName)
                 </td>
-                <td>
+                @if (ViewBag.gid != null)
+                {
+                    <td>
                     <a asp-action="details" asp-route-id="@item.EmpId" class="btn btn-info">Details</a> |
                     <a asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-success">Edit</a> |
                     <a asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger" onclick = "return confirm('Are You Sure to delete '+'@item.EmpName '+'?')"><i class="icon-trash"></i> Delete</a>
-                </td>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
-
-
+@*@Html.PagedListPager(Model,n=>  Url.Action("index",new {pageno = n}))
+*@
 
