@@ -85,6 +85,21 @@
 </section>
 
 
+
+<script>
+    $("#Search").on("keyup",function(){
+        let text=$("#Search").val();
+        $("#SearchResult").load("Attendance/SearchR?Search="+text)
+    })
+    $(function(){
+         $("#SearchResult").load("Attendance/SearchR)
+    })
+</script>
+
+
+
+
+
 @*<partial name="Create">*@
 
 

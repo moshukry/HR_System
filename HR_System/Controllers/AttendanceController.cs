@@ -26,6 +26,27 @@ namespace HR_System.Controllers
 
 			return View(db.Att_dep.ToList());
 		}
+
+		public IActionResult SearchR(string Search)
+		{
+			//ViewBag.Emp = new SelectList(db.Employees.ToList(), "EmpId", "EmpName");
+			//List<AttDep> atts = db.Att_dep.OrderBy(n => n.EmpId).ToList();
+
+			if (!string.IsNullOrEmpty(Search))
+			{
+				var att1 = db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search));
+				return PartialView(att1);
+			}
+			return RedirectToAction("Index");
+			//if (Search != null)
+			//{
+			//	var att1 = db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search));
+
+			//	return View(att1);
+			//}
+			//return View(db.Att_dep.ToList());
+		}
+
 		public ActionResult Delete(int? id)
         {
             if (id != null)
