@@ -15,17 +15,11 @@ public class UserController : Controller
     // List Users
     public IActionResult Index()
     {
-        //var userx = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("userData"));
-        //Admin admin = db.Admins.Where(n => n.AdminName == a.AdminName && n.AdminPass == a.AdminPass).FirstOrDefault();
-        //ViewBag.role =
         var gId = HttpContext.Session.GetString("groupId");
-        if (gId == null)
+        if (gId != null)
         {
-            ViewBag.admin = "admin";
-        }
-        else
-        {
-            ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.PageId == 1).FirstOrDefault();
+            string pagename = "User";
+            ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pagename).FirstOrDefault();
         }
         return View(db.Users.ToList());
     }
