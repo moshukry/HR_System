@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HR_System.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 
 namespace HR_System.Controllers;
 public class UserController : Controller
@@ -14,7 +15,9 @@ public class UserController : Controller
     // List Users
     public IActionResult Index()
     {
-
+        //var userx = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("userData"));
+        //Admin admin = db.Admins.Where(n => n.AdminName == a.AdminName && n.AdminPass == a.AdminPass).FirstOrDefault();
+        //ViewBag.role =
         return View(db.Users.ToList());
     }
 
