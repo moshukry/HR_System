@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HR_System.Models;
-using PagedList.Mvc;
-using PagedList;
 
 namespace HR_System.Controllers
 {
@@ -28,7 +26,11 @@ namespace HR_System.Controllers
         // GET: AllEmployees 
         public IActionResult allEmployees(string search,int show)
         {
-            //ViewBag.gid = "ahmed";
+            var gId = HttpContext.Session.GetString("groupId");
+            if (gId != null)
+            {
+                ViewBag.groupId = _context.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.PageId == 1).FirstOrDefault();
+            }
             var employees = _context.Employees.Include(e => e.Dept).ToList();
             if (search != null && show != 0)
             {

@@ -27,9 +27,6 @@ namespace HR_System.Controllers
             //check if cookies file is exist or not
             if (Request.Cookies["id"] != null)
             {
-
-               
-
                 //Session.Add("userid", Request.Cookies["hrSystem"].Values["userid"]);
                 if (Request.Cookies["role"] == "admin")
                 {
@@ -44,7 +41,11 @@ namespace HR_System.Controllers
                     var cookie = Request.Cookies["id"];
                     int id = int.Parse(cookie.ToString());
                     var user = db.Users.Find(id);
-                    HttpContext.Session.SetString("userData", JsonConvert.SerializeObject(user));
+
+                    int user_id = user.UserId;
+                    HttpContext.Session.SetString("userId", user_id.ToString());
+                    int? group_id = user.GroupId;
+                    HttpContext.Session.SetString("groupId", group_id.ToString());
                     return RedirectToAction("profileUser");
                 }
 
@@ -54,80 +55,49 @@ namespace HR_System.Controllers
         [HttpPost]
         public ActionResult login(Admin a, bool remberme)
         {
-
             Admin admin = db.Admins.Where(n => n.AdminName == a.AdminName && n.AdminPass == a.AdminPass).FirstOrDefault();
             if (admin != null)
             {
-                //login
                 if (remberme == true)
                 {
-                    //    //add cookies
-                    //HttpCookie co = new HttpCookie("userdata");
-                    //co.Values.Add("userid", s.id.ToString());
-                    //co.Values.Add("name", s.name.ToString());
-                    //co.Expires = DateTime.Now.AddMonths(2);
-                    //Response.Cookies.Add(co);
-                    //    
-
-
                     CookieOptions opt = new CookieOptions();
                     opt.Expires = DateTime.Now.AddDays(2);
                     Response.Cookies.Append("id", admin.AdminId.ToString(), opt);
                     Response.Cookies.Append("role", "admin", opt);
-
-
                 }
-
-
-                //Request.Cookies.Delete("id");
-                HttpContext.Session.SetString("userData", JsonConvert.SerializeObject(admin));
+                HttpContext.Session.SetString("adminId", admin.AdminId.ToString());
                 return RedirectToAction("profileAdmin");
             }
-            else
+            User user = db.Users.Where(n => n.Username == a.AdminName && n.Password == a.AdminPass).FirstOrDefault();
+            if (user != null)
             {
-                //ViewBag.status = "incorrect email or password ";
-                //return View();
-                User user = db.Users.Where(n => n.Username == a.AdminName && n.Password == a.AdminPass).FirstOrDefault();
-                if (user != null)
+                if (remberme == true)
                 {
-                    //login
-                    if (remberme == true)
-                    {
-                        //    //add cookies
-                        //    HttpCookie co = new HttpCookie("userdata");
-                        //    co.Values.Add("userid", s.id.ToString());
-                        //    co.Values.Add("name", s.name.ToString());
-                        //    co.Expires = DateTime.Now.AddMonths(2);
-                        //    Response.Cookies.Add(co);
-
-                        CookieOptions opt = new CookieOptions();
-                        opt.Expires = DateTime.Now.AddDays(2);
-                        Response.Cookies.Append("id", user.UserId.ToString(), opt);
-                        Response.Cookies.Append("role", "user", opt);
-
-                    }
-                    HttpContext.Session.SetString("userData", JsonConvert.SerializeObject(user));
-                    return RedirectToAction("profileUser");
-
+                    CookieOptions opt = new CookieOptions();
+                    opt.Expires = DateTime.Now.AddDays(2);
+                    Response.Cookies.Append("id", user.UserId.ToString(), opt);
+                    Response.Cookies.Append("role", "user", opt);
                 }
-                else
-                {
-                    ViewBag.status = "incorrect email or password ";
-                    return View();
-                }
-
+                int user_id = user.UserId;
+                HttpContext.Session.SetString("userId",user_id.ToString());
+                int? group_id = user.GroupId;
+                HttpContext.Session.SetString("groupId",group_id.ToString());
+                return RedirectToAction("profileUser");
             }
+            ViewBag.status = "incorrect email or password ";
+            return View();
         }
 
         public ActionResult profileAdmin()
         {
-            var admin = JsonConvert.DeserializeObject<Admin>(HttpContext.Session.GetString("userData"));
-            return View(db.Admins.Find(admin.AdminId));
+            var admin_id = HttpContext.Session.GetString("adminId");
+            return View(db.Admins.Find(int.Parse(admin_id)));
         }
         public ActionResult profileUser()
         {
-            var user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userData"));
-            return View(db.Users.Find(user.UserId));
+            //var user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userData"));
+            var user_id = HttpContext.Session.GetString("userId");
+            return View(db.Users.Find(int.Parse(user_id)));
         }
 
         public ActionResult logout()
