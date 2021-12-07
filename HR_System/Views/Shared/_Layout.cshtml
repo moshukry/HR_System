@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using HR_System.ViewModels 
+@using HR_System.Models
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -46,30 +51,78 @@
                    class="menu-title">Dashboard</span></a>
                 </li>
                 <li class="has-sub nav-item">
-                   <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title"> Employees</span></a>
-                   <ul class="menu-content">
-                      <li><a asp-action="Index" asp-controller="Employees" class="menu-item"> <i class="icon-bar"></i> Employees Statistics</a>
-                      </li>
-                      <li><a asp-action="Create" asp-controller="Employees" class="menu-item">Add Employee</a>
-                      </li>
-                   </ul>
+
+
+                     @foreach (var i in ViewBag.PagesRules) {
+                            
+                                 @if (  @i.PageId == 1 && @i.Read )
+                            {
+                                  <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title"> Employees</span></a>
+                                <ul class="menu-content">
+                                    <li><a asp-action="Index" asp-controller="Employees" class="menu-item"> <i class="icon-bar"></i> Employees Statistics</a>
+                                    </li>
+                                    <li><a asp-action="Create" asp-controller="Employees" class="menu-item">Add Employee</a>
+                                    </li>
+                                </ul>
+
+                                }
+                                
+
+
+                                @if (@i.PageId == 2 && @i.Read)
+                                {
+                                   <li class=" nav-item"><a asp-action="Index" asp-controller="group"><i class="icon-equalizer"></i><span data-i18n="" class="menu-title">Permissions</span></a>
+                                   </li>   
+                                }
+
+                                
+                                @if (@i.PageId == 3 && @i.Read)
+                                {
+                                    <li class=" nav-item"><a asp-action="Index" asp-controller="user" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
+
                 </li>
-                <li class=" nav-item"><a href="add_employee.html"><i class="icon-note"></i><span data-i18n="" class="menu-title">Add Employee</span></a>
-                </li>
-                <li class=" nav-item"><a href="general_settings.html"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">
+                                }
+
+                                @if (@i.PageId == 4 && @i.Read)
+                                {
+                                 <li class=" nav-item"><a href="add_employee.html"><i class="icon-note"></i><span data-i18n="" class="menu-title">Vacations</span></a>
+                </li>   
+                                }
+                                @if (@i.PageId == 5 && @i.Read)
+                                {
+                                     <li class=" nav-item"><a href="general_settings.html"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">
                    General Settings</span></a>
                 </li>
-                <li class=" nav-item"><a href="attendance_ departure.html"><i class="icon-support"></i><span data-i18n="" class="menu-title">
-                   Attendance</span></a>
+
+                                }
+                                @if (@i.PageId == 6 && @i.Read)
+                                {
+                                    
+                <li class=" nav-item"><a asp-action="Index" asp-controller="Attendance" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Attendance</span></a>
+
                 </li>
-                <li class=" nav-item"><a href="salary_report.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
-                </li>
-                <li class=" nav-item"><a asp-action="Index" asp-controller="user" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
-                </li>
-                <li class=" nav-item"><a asp-action="Index" asp-controller="group"><i class="icon-equalizer"></i><span data-i18n="" class="menu-title">Permissions</span></a>
-                </li>
+                                }
+                                @if (@i.PageId == 7 && @i.Read)
+                                {
+                                     <li class=" nav-item"><a href="salary_report.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
+                </li>   
+                                }
+
+
+
+
+                            }   
+                    
+                              
+                         
+                        </li>
+                
+               
+            
+                
+              
              
-                <li class=" nav-item"><a href="login.html"><i class="icon-pin"></i><span data-i18n="" class="menu-title">Login Page </span></a>
+                <li class=" nav-item"><a asp-action="login" asp-controller="operation"><i class="icon-pin"></i><span data-i18n="" class="menu-title">Login Page </span></a>
                  </li>
             </ul>
           </div>
@@ -89,6 +142,7 @@
                 <div class="arrow_box"><a href="chat.html" class="dropdown-item py-1"><span>Chat</span></a><a href="taskboard.html" class="dropdown-item py-1"><span>TaskBoard</span></a><a href="calendar.html" class="dropdown-item py-1"><span>Calendar</span></a></div>
               </div>
             </div>
+            <a asp-action="logout"  asp-controller="operation" class="mx-1 blue-grey darken-4 text-bold-400">Log out</a>
           </div>
           <div class="navbar-container">
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
@@ -384,7 +438,7 @@
     <script src="~/vendors/js/screenfull.min.js"></script>
     <script src="~/vendors/js/pace/pace.min.js"></script>
 
-    
+
     <script src="~/js/app-sidebar.js"></script>
     <script src="~/js/notification-sidebar.js"></script>
     <script src="~/js/customizer.js"></script>

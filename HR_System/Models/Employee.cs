@@ -12,7 +12,7 @@ namespace HR_System.Models
         [Required(ErrorMessage ="*")]
         public int EmpId { get; set; }
 
-        
+
         [Required(ErrorMessage = "*")]
         [StringLength(100,MinimumLength =3,ErrorMessage ="Name must be between 3 and 100 characters")]
         public string EmpName { get; set; } = null!;
@@ -22,9 +22,10 @@ namespace HR_System.Models
         [StringLength(150, MinimumLength = 3, ErrorMessage = "Address must be between 3 and 150 characters")]
         public string Address { get; set; } = null!;
 
+        [StringLength(11)]
         [Required(ErrorMessage = "*")]
         [RegularExpression("^01[0-2]{1}[0-9]{8}", ErrorMessage ="Please Insert a valid Phone Number")]
-        [Phone]
+        //[Phone]
         public string Phone { get; set; }
 
 
@@ -41,7 +42,7 @@ namespace HR_System.Models
         public DateTime Birthdate { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage ="*")]
         [RegularExpression("^[0-9]{14}$",ErrorMessage ="Invalid.. must be 14 degit number")]
         public string NationalId { get; set; } = null!;
 
@@ -54,12 +55,13 @@ namespace HR_System.Models
         [Required(ErrorMessage = "*")]
         public int FixedSalary { get; set; }
 
-
+        //[Remote("DeptTimeCheck","employees")]
         [Required(ErrorMessage = "*")]
         public TimeSpan AttTime { get; set; }
 
 
         [Required(ErrorMessage = "*")]
+        //[Remote("DeptTimeCheck", "employees", ErrorMessage = "Departure time Must be after attendance time!")]
         public TimeSpan DepartureTime { get; set; }
         public int? DeptId { get; set; }
 
