@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HR_System.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+
 using Newtonsoft.Json;
+
 
 namespace HR_System.Controllers;
 public class UserController : Controller
@@ -15,12 +17,14 @@ public class UserController : Controller
     // List Users
     public IActionResult Index()
     {
+
         var gId = HttpContext.Session.GetString("groupId");
         if (gId != null)
         {
             string pagename = "User";
             ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pagename).FirstOrDefault();
         }
+
         return View(db.Users.ToList());
     }
 
@@ -66,6 +70,7 @@ public class UserController : Controller
 
     // Delete User
 
+
     public IActionResult delete(int? id)
     {
             var x = db.Users.Find(id);
@@ -80,6 +85,8 @@ public class UserController : Controller
              }
      
         
+
+
 
 
         return RedirectToAction("Index", "User");

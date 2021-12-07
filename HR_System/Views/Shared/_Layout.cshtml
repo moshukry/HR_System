@@ -52,6 +52,7 @@
                 </li>
                 <li class="has-sub nav-item">
 
+
                      @foreach (var i in ViewBag.PagesRules) {
                             
                                  @if (  @i.PageId == 1 && @i.Read )
@@ -78,6 +79,7 @@
                                 @if (@i.PageId == 3 && @i.Read)
                                 {
                                     <li class=" nav-item"><a asp-action="Index" asp-controller="user" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
+
                 </li>
                                 }
 
@@ -91,11 +93,13 @@
                                      <li class=" nav-item"><a href="general_settings.html"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">
                    General Settings</span></a>
                 </li>
+
                                 }
                                 @if (@i.PageId == 6 && @i.Read)
                                 {
                                     
                 <li class=" nav-item"><a asp-action="Index" asp-controller="Attendance" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Attendance</span></a>
+
                 </li>
                                 }
                                 @if (@i.PageId == 7 && @i.Read)
@@ -433,6 +437,7 @@
     <script src="~/vendors/js/jquery.matchHeight-min.js"></script>
     <script src="~/vendors/js/screenfull.min.js"></script>
     <script src="~/vendors/js/pace/pace.min.js"></script>
+
 
     <script src="~/js/app-sidebar.js"></script>
     <script src="~/js/notification-sidebar.js"></script>
