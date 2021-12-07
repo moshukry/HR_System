@@ -14,6 +14,7 @@ namespace HR_System.Controllers
         }
         public IActionResult Index()
         {
+
             var setts = db.Settings.FirstOrDefault();
             ViewBag.vac = new SelectList(new List<string>() { "saturday", "sunday", "Monday", "Tuesday", "wednesday", "Thursday", "Friday" });
             if (setts == null)
@@ -32,17 +33,21 @@ namespace HR_System.Controllers
             {
                 return View(setts);
             }
+
         }
         [HttpPost]
         public IActionResult Index(Setting s)
         {
+
             var sett = db.Settings.ToList().Count;
             if (ModelState.IsValid && sett == 0)
+
             {
                 db.Settings.Add(s);
                 db.SaveChanges();
                 return RedirectToAction("index");
             }
+
             else if (ModelState.IsValid && sett > 0)
             {
 

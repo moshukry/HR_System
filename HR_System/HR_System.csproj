@@ -8,7 +8,9 @@
 
   <ItemGroup>
 
+
     <PackageReference Include="jQuery" Version="3.6.0" />
+
 
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0" />
@@ -31,6 +33,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="3.2.12" />
+
 
   </ItemGroup>
 
