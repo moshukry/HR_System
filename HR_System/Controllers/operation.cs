@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Session;
-using RestSharp;
 
 namespace HR_System.Controllers
 {
@@ -27,13 +26,12 @@ namespace HR_System.Controllers
             //check if cookies file is exist or not
             if (Request.Cookies["id"] != null)
             {
-                //Session.Add("userid", Request.Cookies["hrSystem"].Values["userid"]);
                 if (Request.Cookies["role"] == "admin")
                 {
                     var cookie = Request.Cookies["id"];
                     int id = int.Parse(cookie.ToString());
                     var admin = db.Admins.Find(id);
-                    HttpContext.Session.SetString("userData", JsonConvert.SerializeObject(admin));
+                    HttpContext.Session.SetString("adminId", admin.AdminId.ToString());
                     return RedirectToAction("profileAdmin");
                 }
                 else if (Request.Cookies["role"] == "user")
@@ -90,8 +88,15 @@ namespace HR_System.Controllers
 
         public ActionResult profileAdmin()
         {
-            var admin_id = HttpContext.Session.GetString("adminId");
-            return View(db.Admins.Find(int.Parse(admin_id)));
+            string? admin_id = HttpContext.Session.GetString("adminId");
+            //if (admin_id != null)
+            //{
+                return View(db.Admins.Find(int.Parse(admin_id.ToString())));
+            //}
+            //else
+            //{
+            //    return NotFound();
+            //}
         }
         public ActionResult profileUser()
         {
