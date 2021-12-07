@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using HR_System.ViewModels 
+@using HR_System.Models
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -46,27 +51,72 @@
                    class="menu-title">Dashboard</span></a>
                 </li>
                 <li class="has-sub nav-item">
-                   <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title"> Employees</span></a>
-                   <ul class="menu-content">
-                      <li><a asp-action="Index" asp-controller="Employees" class="menu-item"> <i class="icon-bar"></i> Employees Statistics</a>
-                      </li>
-                      <li><a asp-action="Create" asp-controller="Employees" class="menu-item">Add Employee</a>
-                      </li>
-                   </ul>
+
+                     @foreach (var i in ViewBag.PagesRules) {
+                            
+                                 @if (  @i.PageId == 1 && @i.Read )
+                            {
+                                  <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title"> Employees</span></a>
+                                <ul class="menu-content">
+                                    <li><a asp-action="Index" asp-controller="Employees" class="menu-item"> <i class="icon-bar"></i> Employees Statistics</a>
+                                    </li>
+                                    <li><a asp-action="Create" asp-controller="Employees" class="menu-item">Add Employee</a>
+                                    </li>
+                                </ul>
+
+                                }
+                                
+
+
+                                @if (@i.PageId == 2 && @i.Read)
+                                {
+                                   <li class=" nav-item"><a asp-action="Index" asp-controller="group"><i class="icon-equalizer"></i><span data-i18n="" class="menu-title">Permissions</span></a>
+                                   </li>   
+                                }
+
+                                
+                                @if (@i.PageId == 3 && @i.Read)
+                                {
+                                    <li class=" nav-item"><a asp-action="Index" asp-controller="user" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
                 </li>
-                <li class=" nav-item"><a href="add_employee.html"><i class="icon-note"></i><span data-i18n="" class="menu-title">Add Employee</span></a>
-                </li>
-                <li class=" nav-item"><a href="general_settings.html"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">
+                                }
+
+                                @if (@i.PageId == 4 && @i.Read)
+                                {
+                                 <li class=" nav-item"><a href="add_employee.html"><i class="icon-note"></i><span data-i18n="" class="menu-title">Vacations</span></a>
+                </li>   
+                                }
+                                @if (@i.PageId == 5 && @i.Read)
+                                {
+                                     <li class=" nav-item"><a href="general_settings.html"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">
                    General Settings</span></a>
                 </li>
+                                }
+                                @if (@i.PageId == 6 && @i.Read)
+                                {
+                                    
                 <li class=" nav-item"><a asp-action="Index" asp-controller="Attendance" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Attendance</span></a>
                 </li>
-                <li class=" nav-item"><a href="salary_report.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
-                </li>
-                <li class=" nav-item"><a asp-action="Index" asp-controller="user" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
-                </li>
-                <li class=" nav-item"><a asp-action="Index" asp-controller="group"><i class="icon-equalizer"></i><span data-i18n="" class="menu-title">Permissions</span></a>
-                </li>
+                                }
+                                @if (@i.PageId == 7 && @i.Read)
+                                {
+                                     <li class=" nav-item"><a href="salary_report.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
+                </li>   
+                                }
+
+
+
+
+                            }   
+                    
+                              
+                         
+                        </li>
+                
+               
+            
+                
+              
              
                 <li class=" nav-item"><a asp-action="login" asp-controller="operation"><i class="icon-pin"></i><span data-i18n="" class="menu-title">Login Page </span></a>
                  </li>
