@@ -8,7 +8,6 @@ namespace HR_System.Models
     {
         public int AttId { get; set; }
 
-        [Required(ErrorMessage ="*")]
         public int EmpId { get; set; }
 
         [Required(ErrorMessage = "*")]

@@ -24,7 +24,7 @@ namespace HR_System.Controllers
             return View();
         }
         // GET: AllEmployees 
-        public IActionResult allEmployees(string search,int show)
+        public IActionResult allEmployees(string search, int show)
         {
             var gId = HttpContext.Session.GetString("groupId");
             if (gId != null)
@@ -37,16 +37,16 @@ namespace HR_System.Controllers
                 var emps = employees.Where(e => e.EmpName.Contains(search)).Take(show);
                 return PartialView(emps);
             }
-            if(search != null)
+            if (search != null)
             {
                 var emps = _context.Employees.Include(e => e.Dept).Where(e => e.EmpName.Contains(search));
-                return PartialView( emps);
+                return PartialView(emps);
             }
-            if(show != 0)
+            if (show != 0)
             {
                 return PartialView(employees.Take(show));
             }
-            return PartialView( employees.Take(10));
+            return PartialView(employees.Take(10));
         }
         // GET: Employees/Details/5
         public IActionResult Details(int? id)
@@ -69,14 +69,14 @@ namespace HR_System.Controllers
         // Remote Validations for Employee BirthDate and HireDate...
         public IActionResult birthdatecheck(DateTime Birthdate)
         {
-            DateTime datebefore20 = new DateTime(DateTime.Now.Year-20,DateTime.Now.Month,DateTime.Now.Day);
+            DateTime datebefore20 = new DateTime(DateTime.Now.Year - 20, DateTime.Now.Month, DateTime.Now.Day);
             var result = DateTime.Compare(Birthdate, datebefore20);
             if (result <= 1) return Json(true);
             else return Json(false);
         }
         public JsonResult hiredatecheck(DateTime Hiredate)
         {
-            DateTime companystartdate = new DateTime(2008,1,1);
+            DateTime companystartdate = new DateTime(2008, 1, 1);
             var result = DateTime.Compare(Hiredate, companystartdate);
             if (result >= 0) return Json(true);
             else return Json(false);
@@ -120,11 +120,11 @@ namespace HR_System.Controllers
                 _context.Add(employee);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
-        }
-            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" },employee.Gender);
+            }
+            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" }, employee.Gender);
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
             return View(employee);
-}
+        }
 
 
         // GET: Employees/Edit/5
@@ -140,7 +140,7 @@ namespace HR_System.Controllers
             {
                 return NotFound();
             }
-            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" },employee.Gender);
+            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" }, employee.Gender);
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
             return View(employee);
         }
@@ -177,7 +177,7 @@ namespace HR_System.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" },employee.Gender);
+            ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" }, employee.Gender);
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptId", employee.DeptId);
             return View(employee);
         }

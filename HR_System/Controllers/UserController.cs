@@ -66,11 +66,16 @@ public class UserController : Controller
 
     // Delete User
 
-    public IActionResult delete(int id)
+    public IActionResult delete(int? id)
     {
+        User u = db.Users.Find(id);
+        if (u != null)
+        {
+            db.Users.Remove(u);
+            db.SaveChanges();
+        }
         
-        db.Users.Remove(db.Users.Find(id));
-        db.SaveChanges();
+        
 
         return RedirectToAction("Index", "User");
     }

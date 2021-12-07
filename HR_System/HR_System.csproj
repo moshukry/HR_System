@@ -6,9 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
+  
 
   <ItemGroup>
 
@@ -30,7 +28,6 @@
 
 
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
 
 
 
@@ -39,12 +36,6 @@
 
 
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.0" />
-
-
-    <PackageReference Include="RestSharp.Injection" Version="1.1.0" />
-
-
-    <PackageReference Include="RestSharpHelper" Version="1.1.1" />
 
 
   </ItemGroup>

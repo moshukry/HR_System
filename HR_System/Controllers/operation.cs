@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Session;
-using RestSharp;
+//using RestSharp;
 
 namespace HR_System.Controllers
 {
@@ -44,7 +44,7 @@ namespace HR_System.Controllers
 
                     int user_id = user.UserId;
                     HttpContext.Session.SetString("userId", user_id.ToString());
-                    int? group_id = user.GroupId;
+                    int group_id = (int)user.GroupId;
                     HttpContext.Session.SetString("groupId", group_id.ToString());
                     return RedirectToAction("profileUser");
                 }
@@ -80,7 +80,7 @@ namespace HR_System.Controllers
                 }
                 int user_id = user.UserId;
                 HttpContext.Session.SetString("userId",user_id.ToString());
-                int? group_id = user.GroupId;
+                int group_id = (int)user.GroupId;
                 HttpContext.Session.SetString("groupId",group_id.ToString());
                 return RedirectToAction("profileUser");
             }
@@ -91,13 +91,13 @@ namespace HR_System.Controllers
         public ActionResult profileAdmin()
         {
             var admin_id = HttpContext.Session.GetString("adminId");
-            return View(db.Admins.Find(int.Parse(admin_id)));
+            return View(db.Admins.Find(int.Parse(admin_id.ToString())));
         }
         public ActionResult profileUser()
         {
             //var user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userData"));
             var user_id = HttpContext.Session.GetString("userId");
-            return View(db.Users.Find(int.Parse(user_id)));
+            return View(db.Users.Find(int.Parse(user_id.ToString())));
         }
 
         public ActionResult logout()
