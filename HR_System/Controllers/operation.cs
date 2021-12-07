@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Session;
-using RestSharp;
+
 
 namespace HR_System.Controllers
 {
@@ -34,7 +34,7 @@ namespace HR_System.Controllers
                     int id = int.Parse(cookie.ToString());
                     var admin = db.Admins.Find(id);
                     HttpContext.Session.SetString("userData", JsonConvert.SerializeObject(admin));
-                    return RedirectToAction("profileAdmin");
+                    return RedirectToAction("Create", "Employees");
                 }
                 else if (Request.Cookies["role"] == "user")
                 {
@@ -45,8 +45,10 @@ namespace HR_System.Controllers
                     int user_id = user.UserId;
                     HttpContext.Session.SetString("userId", user_id.ToString());
                     int? group_id = user.GroupId;
+#pragma warning disable CS8604 // Possible null reference argument.
                     HttpContext.Session.SetString("groupId", group_id.ToString());
-                    return RedirectToAction("profileUser");
+#pragma warning restore CS8604 // Possible null reference argument.
+                    return RedirectToAction("Create", "Employees");
                 }
 
             }
@@ -66,7 +68,7 @@ namespace HR_System.Controllers
                     Response.Cookies.Append("role", "admin", opt);
                 }
                 HttpContext.Session.SetString("adminId", admin.AdminId.ToString());
-                return RedirectToAction("profileAdmin");
+                return RedirectToAction("Create", "Employees");
             }
             User user = db.Users.Where(n => n.Username == a.AdminName && n.Password == a.AdminPass).FirstOrDefault();
             if (user != null)
@@ -81,24 +83,26 @@ namespace HR_System.Controllers
                 int user_id = user.UserId;
                 HttpContext.Session.SetString("userId",user_id.ToString());
                 int? group_id = user.GroupId;
+#pragma warning disable CS8604 // Possible null reference argument.
                 HttpContext.Session.SetString("groupId",group_id.ToString());
-                return RedirectToAction("profileUser");
+#pragma warning restore CS8604 // Possible null reference argument.
+                return RedirectToAction("Create", "Employees");
             }
             ViewBag.status = "incorrect email or password ";
             return View();
         }
 
-        public ActionResult profileAdmin()
-        {
-            var admin_id = HttpContext.Session.GetString("adminId");
-            return View(db.Admins.Find(int.Parse(admin_id)));
-        }
-        public ActionResult profileUser()
-        {
-            //var user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userData"));
-            var user_id = HttpContext.Session.GetString("userId");
-            return View(db.Users.Find(int.Parse(user_id)));
-        }
+        //public ActionResult profileAdmin()
+        //{
+        //    var admin_id = HttpContext.Session.GetString("adminId");
+        //    return View(db.Admins.Find(int.Parse(admin_id.ToString())));
+        //}
+        //public ActionResult profileUser()
+        //{
+        //    //var user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userData"));
+        //    var user_id = HttpContext.Session.GetString("userId");
+        //    return View(db.Users.Find(int.Parse(user_id.ToString())));
+        //}
 
         public ActionResult logout()
         {
