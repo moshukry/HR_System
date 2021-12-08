@@ -23,7 +23,7 @@
                                     <label>
                                         Show
                                         <select class="form-control form-control-sm" id="show">
-                                            <option value="10">10</option>
+                                            <option value="10" selected="selected">10</option>
                                             <option value="25">25</option>
                                             <option value="50">50</option>
                                             <option value="100">100</option>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-sm-12 col-md-3">
-                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search Employee:<input type="text" id="search" class="form-control form-control-sm"></label></div>
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search Employee:<input type="text" id="Search" class="form-control form-control-sm"></label></div>
                             </div>
                             <div class="col-lg-1"></div>
                             <div class="col-lg-3">
@@ -101,15 +101,19 @@
 <script>
     $(function(){
         $("#Lists").load("list")
+
     })
     $("#Search").on("keyup",function(){
-        $("#Lists").load("Attendance/list?Search="+$("#Search").val())
+        //$("#Lists").load("list?Search="+$("#Search").val())
+        $("#Lists").load("list?show="+$("#show").val()+"&Search="+$("#Search").val())
+         //alert("Hello!")
     })
     $("#show").on("change",function(){
-        $("#Lists").load("Attendance/list?show="+$("#show").val()+"&Search="+$("#Search").val())
+        $("#Lists").load("list?show="+$("#show").val()+"&Search="+$("#Search").val())
+        //alert("Hello!")
     })
 </script>
-}w
+}
 
 
 @*<partial name="Create">*@

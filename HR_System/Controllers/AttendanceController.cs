@@ -14,32 +14,6 @@ namespace HR_System.Controllers
         }
         public IActionResult Index()
         {
-            //var Gid = HttpContext.Session.GetString("groupId");
-            //if (Gid != null)
-            //{
-            //    string pagename = "Attendance";
-            //    ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(Gid) && n.PageId == int.Parse(pagename));
-            //}
-            //ViewBag.Emp = new SelectList(db.Employees.ToList(), "EmpId", "EmpName");
-
-            //if (search != null)
-            //{
-
-            //    var att1 = db.Att_dep.Where(n => n.Emp.EmpName.Contains(search));
-
-            //    return View(att1);
-            //}
-
-            //return View(db.Att_dep.ToList());
-
-
-
-            //var gId = HttpContext.Session.GetString("groupId");
-            //if (gId != null)
-            //{
-            //    ViewBag.groupId = _context.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.PageId == 1).FirstOrDefault();
-            //}
-
             return View();
         }
 
@@ -53,42 +27,18 @@ namespace HR_System.Controllers
             }
 
             //AttDep a = (AttDep)db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search));
-            db.Att_dep.ToList();
+            //db.Att_dep.ToList();
+            if (String.IsNullOrEmpty(Search) && show != 0)
+            {
+                return PartialView(db.Att_dep.ToList().Take(show));
+            }
             if (Search != null && show != 0)
             {
-                var deps = db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search)).Take(show);
+                var deps = db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search)).Take(show).ToList();
                 return PartialView(deps);
             }
-            if (!string.IsNullOrEmpty(Search))
-            {
-                return PartialView(db.Att_dep.ToList().Take(show));
-            }
-            if (show != 0)
-            {
-                return PartialView(db.Att_dep.ToList().Take(show));
-            }
-            return View();
+            return PartialView(db.Att_dep.ToList().Take(10));
         }
-
-        //public IActionResult SearchR(string Search)
-        //{
-        //    //ViewBag.Emp = new SelectList(db.Employees.ToList(), "EmpId", "EmpName");
-        //    //List<AttDep> atts = db.Att_dep.OrderBy(n => n.EmpId).ToList();
-
-        //    if (!string.IsNullOrEmpty(Search))
-        //    {
-        //        var att1 = db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search));
-        //        return PartialView(att1);
-        //    }
-        //    return RedirectToAction("Index");
-
-        //    //if (Search != null)
-        //    //{
-        //    //	var att1 = db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search));
-        //    //	return View(att1);
-        //    //}
-        //    //return View(db.Att_dep.ToList());
-        //}
 
         public ActionResult Delete(int? id)
         {
@@ -128,9 +78,5 @@ namespace HR_System.Controllers
             }
             return View(attDep);
         }
-        //public IActionResult Cancel()
-        //{
-        //	return RedirectToAction("Index");
-        //}
     }
 }
