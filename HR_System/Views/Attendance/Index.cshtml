@@ -101,16 +101,12 @@
 <script>
     $(function(){
         $("#Lists").load("list")
-
     })
     $("#Search").on("keyup",function(){
-        //$("#Lists").load("list?Search="+$("#Search").val())
         $("#Lists").load("list?show="+$("#show").val()+"&Search="+$("#Search").val())
-         //alert("Hello!")
     })
     $("#show").on("change",function(){
         $("#Lists").load("list?show="+$("#show").val()+"&Search="+$("#Search").val())
-        //alert("Hello!")
     })
 </script>
 }
