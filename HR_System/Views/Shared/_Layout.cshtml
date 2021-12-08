@@ -78,7 +78,7 @@
 
                 </li>
 
-                  <li class=" nav-item"><a href="salary_report.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
+                  <li class=" nav-item"><a asp-action="Index" asp-controller="Salary"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
                 </li>   
 
 
@@ -143,8 +143,8 @@
                                 }
                                 @if (@i.PageId == 7 && @i.Read)
                                 {
-                                     <li class=" nav-item"><a href="salary_report.html"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
-                </li>   
+                                       <li class=" nav-item"><a asp-action="Index" asp-controller="Salary"><i class="icon-layers"></i><span data-i18n="" class="menu-title">Salary report</span></a>
+                </li>  
                                 }
 
 
