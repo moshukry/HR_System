@@ -70,7 +70,6 @@ public class UserController : Controller
 
     // Delete User
 
-
     public IActionResult delete(int? id)
     {
             var x = db.Users.Find(id);
@@ -83,17 +82,6 @@ public class UserController : Controller
              {
             return NotFound(); 
              }
-     
-        
-
-
-
-
         return RedirectToAction("Index", "User");
     }
-
-
-
-
-
 }

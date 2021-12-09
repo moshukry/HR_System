@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Session;
 
-
 namespace HR_System.Controllers
 {
     public class operation : Controller
@@ -50,7 +49,11 @@ namespace HR_System.Controllers
 
                     int user_id = user.UserId;
                     HttpContext.Session.SetString("userId", user_id.ToString());
+
+                    int group_id = (int)user.GroupId;
+
                     int group_id = (int) user.GroupId;
+
                     HttpContext.Session.SetString("groupId", group_id.ToString());
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -87,6 +90,7 @@ namespace HR_System.Controllers
                 }
                 int user_id = user.UserId;
                 HttpContext.Session.SetString("userId",user_id.ToString());
+
                 int group_id = (int) user.GroupId;
                 HttpContext.Session.SetString("groupId",group_id.ToString());
                 return RedirectToAction("Index", "Dashboard");
@@ -100,7 +104,6 @@ namespace HR_System.Controllers
 
             var admin_id = HttpContext.Session.GetString("adminId");
             return View(db.Admins.Find(int.Parse(admin_id.ToString())));
-
         }
         public ActionResult profileUser()
         {

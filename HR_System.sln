@@ -4,13 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31815.197
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HR_System", "HR_System\HR_System.csproj", "{6274C74C-3881-4A9C-ADBA-0CD093B56A85}"
-
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{07E11DE3-CEC4-43E1-A8AE-DD15BC402B0F}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-	EndProjectSection
-
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
