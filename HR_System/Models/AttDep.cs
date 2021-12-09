@@ -10,11 +10,11 @@ namespace HR_System.Models
      
         public int AttId { get; set; }
 
-        [Required(ErrorMessage ="*")]
         public int EmpId { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Date is Required")]
         public DateTime Date { get; set; }
+
 
         [Required(ErrorMessage = "*")]
         public TimeSpan Attendance { get; set; }
@@ -23,9 +23,6 @@ namespace HR_System.Models
         public TimeSpan Departure { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public int workedHours { get; set; }
-        public virtual Employee Emp { get; set; } = null!;
-
-
-       
+        public virtual Employee? Emp { get; set; } = null!;
     }
 }
