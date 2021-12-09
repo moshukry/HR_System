@@ -15,10 +15,24 @@
 
     @foreach( var i in Model){
 
-    <div> @i.employeeName </div>
-    <div> @i.fixedSalary </div>
-    <div> @i.departmentName </div>
-     <div> @i.attendenceDays </div>
+
+    <div> Emp Name :  @i.employeeName </div>
+    <div> Sal : @i.fixedSalary </div>
+    <div> Department : @i.departmentName </div>
+    <div> Attendence Day : @i.attendenceDays </div>
+    <div> Abscense Day : @i.abscenseDays </div>
+    <div> Bonus : @i.BonusHours </div>
+    <div> Minus   @i.MinusHours </div>
+
+    <div> Total Bonus  @i.TotalBonus </div>
+    <div> Minus Bonus  @i.TotalMinus </div> 
+
+       <div> Net Salary : @i.NetSalary </div>
+
+       <br /> <br />
+
+     
+
 
 
     }

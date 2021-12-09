@@ -67,6 +67,10 @@ namespace HR_System.Models
                     .HasForeignKey(d => d.EmpId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Att_dep_Employee");
+
+
+                entity.Property(m => m.workedHours)
+                .HasComputedColumnSql("DatePart(HOUR ,[departure] )*60 + DatePart(MINUTE ,[departure] ) -  DatePart(HOUR ,[attendance] )*60 + DatePart(MINUTE ,[attendance] )");
             });
 
             modelBuilder.Entity<Crud>(entity =>
