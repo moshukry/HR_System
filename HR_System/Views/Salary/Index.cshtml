@@ -1,0 +1,39 @@
+﻿@using HR_System.Models
+@using HR_System.ViewModels 
+
+@model  List<SalaryVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+
+    <h1>Index</h1>
+
+    @foreach( var i in Model){
+
+
+    <div> Emp Name :  @i.employeeName </div>
+    <div> Sal : @i.fixedSalary </div>
+    <div> Department : @i.departmentName </div>
+    <div> Attendence Day : @i.attendenceDays </div>
+    <div> Abscense Day : @i.abscenseDays </div>
+    <div> Bonus : @i.BonusHours </div>
+    <div> Minus   @i.MinusHours </div>
+
+    <div> Total Bonus  @i.TotalBonus </div>
+    <div> Minus Bonus  @i.TotalMinus </div> 
+
+       <div> Net Salary : @i.NetSalary </div>
+
+       <br /> <br />
+
+     
+
+
+
+    }
+

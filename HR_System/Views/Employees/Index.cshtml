@@ -30,6 +30,7 @@
 @section scripts{
     <script>
         $(function(){
+
             $("#renderemployees").load("allemployees")
         })
         $("#srch").on("keyup",function(){
@@ -37,6 +38,7 @@
         })
         $("#show").on("change",function(){
              $("#renderemployees").load("allemployees?show="+$("#show").val()+"&search="+$("#srch").val())
+
         })
     </script>
 }
