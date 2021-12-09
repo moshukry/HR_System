@@ -21,8 +21,8 @@ namespace HR_System.Controllers
             {
                 Setting s = new Setting()
                 {
-                    PlusPerhour = null,
-                    MinusPerhour = null,
+                    PlusPerhour = 0,
+                    MinusPerhour = 0,
                     Dayoff1 = "",
                     Dayoff2 = ""
 

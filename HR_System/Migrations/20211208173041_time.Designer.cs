@@ -4,6 +4,7 @@ using HR_System.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HR_System.Migrations
 {
     [DbContext(typeof(HrSysContext))]
-    partial class HrSysContextModelSnapshot : ModelSnapshot
+    [Migration("20211208173041_time")]
+    partial class time
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,11 +72,6 @@ namespace HR_System.Migrations
                     b.Property<int>("EmpId")
                         .HasColumnType("int")
                         .HasColumnName("emp_id");
-
-                    b.Property<int>("workedHours")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int")
-                        .HasComputedColumnSql("DatePart(HOUR ,[departure] )*60 + DatePart(MINUTE ,[departure] ) -  DatePart(HOUR ,[attendance] )*60 + DatePart(MINUTE ,[attendance] )");
 
                     b.HasKey("AttId");
 
@@ -269,22 +266,20 @@ namespace HR_System.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SettingId"), 1L, 1);
 
                     b.Property<string>("Dayoff1")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("dayoff_1");
 
                     b.Property<string>("Dayoff2")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("dayoff_2");
 
-                    b.Property<float>("MinusPerhour")
+                    b.Property<float?>("MinusPerhour")
                         .HasColumnType("real")
                         .HasColumnName("minus_perhour");
 
-                    b.Property<float>("PlusPerhour")
+                    b.Property<float?>("PlusPerhour")
                         .HasColumnType("real")
                         .HasColumnName("plus_perhour");
 
