@@ -36,8 +36,10 @@ namespace HR_System.Controllers
                     int id = int.Parse(cookie.ToString());
                     var admin = db.Admins.Find(id);
 
-                    HttpContext.Session.SetString("userData", JsonConvert.SerializeObject(admin));
-                    return RedirectToAction("Index" ,"Dashboard");
+
+                    HttpContext.Session.SetString("adminId", admin.AdminId.ToString());
+                    return RedirectToAction("Index", "Dashboard");
+
 
                 }
                 else if (Request.Cookies["role"] == "user")
@@ -69,7 +71,8 @@ namespace HR_System.Controllers
                     Response.Cookies.Append("id", admin.AdminId.ToString(), opt);
                     Response.Cookies.Append("role", "admin", opt);
                 }
-                HttpContext.Session.SetString("adminId", admin.AdminId.ToString());
+                string id = admin.AdminId.ToString();
+                HttpContext.Session.SetString("adminId", id);
                 return RedirectToAction("Index", "Dashboard");
             }
             User user = db.Users.Where(n => n.Username == a.AdminName && n.Password == a.AdminPass).FirstOrDefault();
