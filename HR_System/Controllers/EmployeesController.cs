@@ -70,15 +70,15 @@ namespace HR_System.Controllers
         public IActionResult birthdatecheck(DateTime Birthdate)
         {
             DateTime datebefore20 = new DateTime(DateTime.Now.Year-20,DateTime.Now.Month,DateTime.Now.Day);
-            var result = DateTime.Compare(Birthdate, datebefore20);
-            if (result <= 1) return Json(true);
+            
+            if (Birthdate < datebefore20) return Json(true);
             else return Json(false);
         }
         public JsonResult hiredatecheck(DateTime Hiredate)
         {
             DateTime companystartdate = new DateTime(2008,1,1);
-            var result = DateTime.Compare(Hiredate, companystartdate);
-            if (result >= 0) return Json(true);
+
+            if (Hiredate > companystartdate) return Json(true);
             else return Json(false);
         }
         //public TimeSpan? attTime;
@@ -146,8 +146,6 @@ namespace HR_System.Controllers
         }
 
         // POST: Employees/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Employee employee)
@@ -202,16 +200,6 @@ namespace HR_System.Controllers
         }
 
         //// POST: Employees/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> DeleteConfirmed(int id)
-        //{
-        //    var employee = await _context.Employees.FindAsync(id);
-        //    _context.Employees.Remove(employee);
-        //    await _context.SaveChangesAsync();
-        //    return RedirectToAction(nameof(Index));
-        //}
-
         private bool EmployeeExists(int id)
         {
             return _context.Employees.Any(e => e.EmpId == id);
