@@ -10,15 +10,15 @@ namespace HR_System.Models
 
         public int EmpId { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Date is Required")]
         public DateTime Date { get; set; }
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Attendance Time is Required")]
         public TimeSpan? Attendance { get; set; } = null!;
 
-        [Required(ErrorMessage = "*")]
+        [Required(ErrorMessage = "* Departure Time is Required")]
         public TimeSpan? Departure { get; set; } = null!;
 
-        public virtual Employee Emp { get; set; } = null!;
+        public virtual Employee? Emp { get; set; }
     }
 }

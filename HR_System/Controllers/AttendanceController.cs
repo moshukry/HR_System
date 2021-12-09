@@ -25,9 +25,6 @@ namespace HR_System.Controllers
                 string pagename = "Attendance";
                 ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(Gid) && n.PageId == int.Parse(pagename));
             }
-
-            //AttDep a = (AttDep)db.Att_dep.Where(n => n.Emp.EmpName.Contains(Search));
-            //db.Att_dep.ToList();
             if (String.IsNullOrEmpty(Search) && show != 0)
             {
                 return PartialView(db.Att_dep.ToList().Take(show));
@@ -67,7 +64,7 @@ namespace HR_System.Controllers
         // POST: AttDeps/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("AttId,EmpId,Date,Attendance,Departure")] AttDep attDep)
+        public IActionResult Create([Bind("AttId,EmpId,Date,Attendance,Departure,EmpName")] AttDep attDep)
         {
             ViewBag.EmpId = new SelectList(db.Employees, "EmpId", "EmpName", attDep.EmpId);
             if (ModelState.IsValid)
