@@ -26,6 +26,7 @@ public class SalaryController : Controller
         //var x = db.Employees.Single( n => n.EmpId == 1);
         //var y = db.Entry(x).Collection(n => n.AttDeps).Query().Count();
 
+
     
         // get days in month 
         var daysInMonth = DateTime.DaysInMonth(2011,11);
@@ -105,6 +106,7 @@ public class SalaryController : Controller
                 NetSalary = Math.Floor( emp.FixedSalary + ( (BonusHours / 60) * plusPerHour * HourPrice) - (MinusHours / 60) * minusPerHour * HourPrice )
             });
         }
+
 
         return View(salary);
     }
