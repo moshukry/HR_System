@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HR_System.Models
 {
     public partial class AttDep
     {
+     
         public int AttId { get; set; }
 
         public int EmpId { get; set; }
@@ -13,12 +15,14 @@ namespace HR_System.Models
         [Required(ErrorMessage = "* Date is Required")]
         public DateTime Date { get; set; }
 
-        [Required(ErrorMessage = "* Attendance Time is Required")]
-        public TimeSpan? Attendance { get; set; } = null!;
 
-        [Required(ErrorMessage = "* Departure Time is Required")]
-        public TimeSpan? Departure { get; set; } = null!;
+        [Required(ErrorMessage = "*")]
+        public TimeSpan Attendance { get; set; }
 
-        public virtual Employee? Emp { get; set; }
+        [Required(ErrorMessage = "*")]
+        public TimeSpan Departure { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int workedHours { get; set; }
+        public virtual Employee? Emp { get; set; } = null!;
     }
 }

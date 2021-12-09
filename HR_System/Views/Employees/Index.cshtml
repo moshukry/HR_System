@@ -29,15 +29,17 @@
 <div id="renderemployees">
 </div>
 @section scripts{
-<script>
-    $(function(){
-        $("#renderemployees").load("employees/allemployees")
-    })
-    $("#srch").on("keyup",function(){
-        $("#renderemployees").load("employees/allemployees?search="+$("#srch").val())
-    })
-    $("#show").on("change",function(){
-         $("#renderemployees").load("employees/allemployees?show="+$("#show").val()+"&search="+$("#srch").val())
-    })
-</script>
+    <script>
+        $(function(){
+
+            $("#renderemployees").load("allemployees")
+        })
+        $("#srch").on("keyup",function(){
+            $("#renderemployees").load("allemployees?search="+$("#srch").val())
+        })
+        $("#show").on("change",function(){
+             $("#renderemployees").load("allemployees?show="+$("#show").val()+"&search="+$("#srch").val())
+        })
+    </script>
+
 }
