@@ -50,8 +50,6 @@ namespace HR_System.Controllers
                     int user_id = user.UserId;
                     HttpContext.Session.SetString("userId", user_id.ToString());
 
-                    int group_id = (int)user.GroupId;
-
                     int group_id = (int) user.GroupId;
 
                     HttpContext.Session.SetString("groupId", group_id.ToString());

@@ -46,12 +46,9 @@
                     {*@
                         <a asp-action="Edit" asp-route-id="@item.EmpId" class="btn btn-success">Edit</a>
                     @*}*@
-                    |<a asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger" onclick = "return confirm('Are You Sure to delete '+'@item.EmpName '+'?')"><i class="icon-trash"></i> Delete</a>
+                    | <a asp-action="Delete" asp-route-id="@item.EmpId" class="btn btn-danger" onclick = "return confirm('Are You Sure to delete '+'@item.EmpName '+'?')"><i class="icon-trash"></i> Delete</a>
                     </td>
             </tr>
         }
     </tbody>
 </table>
-@*@Html.PagedListPager(Model,n=>  Url.Action("index",new {pageno = n}))
-*@
-

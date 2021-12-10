@@ -70,7 +70,7 @@ namespace HR_System.Models
 
 
                 entity.Property(m => m.workedHours)
-                .HasComputedColumnSql("DatePart(HOUR ,[departure] )*60 + DatePart(MINUTE ,[departure] ) -  DatePart(HOUR ,[attendance] )*60 + DatePart(MINUTE ,[attendance] )");
+                .HasComputedColumnSql("DatePart(HOUR ,[departure] ) + DatePart(MINUTE ,[departure])/60.0 -  DatePart(HOUR ,[attendance] ) + DatePart(MINUTE ,[attendance] )/60.0");
             });
 
             modelBuilder.Entity<Crud>(entity =>
