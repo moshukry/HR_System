@@ -1,5 +1,4 @@
-﻿@using HR_System.Models
-@using HR_System.ViewModels 
+﻿@using HR_System.ViewModels 
 
 @model  List<SalaryVM>
 
@@ -7,33 +6,39 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="row">
+        <div>
+            <label>Employee Name</label>
+            <input type="text" id="name" />
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label>Year</label>
+                <select id="year" asp-items="ViewBag.years"></select>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-3">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label>Month</label>
+                <select id="month" asp-items="ViewBag.months"></select>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <a id="searchemp" class="btn btn-primary mb-2"> <i class="ft-search"></i>&nbsp; Search Employee</a>
+        </div>
+    </div>
+</div>
 
- 
+<div id="rendersalary"></div>
 
-
-    <h1>Index</h1>
-
-    @foreach( var i in Model){
-
-
-    <div> Emp Name :  @i.employeeName </div>
-    <div> Sal : @i.fixedSalary </div>
-    <div> Department : @i.departmentName </div>
-    <div> Attendence Day : @i.attendenceDays </div>
-    <div> Abscense Day : @i.abscenseDays </div>
-    <div> Bonus : @i.BonusHours </div>
-    <div> Minus   @i.MinusHours </div>
-
-    <div> Total Bonus  @i.TotalBonus </div>
-    <div> Minus Bonus  @i.TotalMinus </div> 
-
-       <div> Net Salary : @i.NetSalary </div>
-
-       <br /> <br />
-
-     
-
-
-
-    }
-
+@section scripts{
+    <script>
+        $(function(){
+            $("#rendersalary").load("SalaryTable")
+        })
+        $("#searchemp").on("click",function(){
+            $("#rendersalary").load("SalaryTable?selectedyear="+$("#year").val()+"&selectedmonth="+$("#month").val()+"&name="+$("#name").val())
+        })
+    </script>
+}
