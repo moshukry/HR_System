@@ -14,7 +14,23 @@ namespace HR_System.Controllers
         }
         public IActionResult Index()
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
 
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
             var gId = HttpContext.Session.GetString("groupId");
             string pageName = "Permissions";
             if (gId != null)
@@ -61,6 +77,23 @@ namespace HR_System.Controllers
         //create
         public IActionResult CreateGroup()
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
             List <PageCrud> pc=new List<PageCrud>();
             foreach(var item in db.Pages.ToList())
             {
@@ -219,6 +252,23 @@ namespace HR_System.Controllers
         //edit
         public IActionResult EditGroup(int id)
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
             List<PageCrud> pageCruds=new List<PageCrud>();
             List<Crud> cruds = db.CRUDs.Where(n => n.GroupId == id).ToList(); 
             

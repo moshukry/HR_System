@@ -7,14 +7,29 @@ namespace HR_System.Controllers;
 public class SalaryController : Controller
 {
     HrSysContext db;
-
-
-        public SalaryController(HrSysContext db)
-        {
-               this.db = db;
-        }
+    public SalaryController(HrSysContext db)
+    {
+            this.db = db;
+    }
     public IActionResult Index()
     {
+        var admin_id = HttpContext.Session.GetString("adminId");
+        var user_id = HttpContext.Session.GetString("userId");
+
+        if (admin_id != null)
+        {
+            ViewBag.PagesRules = null;
+        }
+        else if (user_id != null)
+        {
+            var b = HttpContext.Session.GetString("groupId");
+            if (b != null)
+            {
+                List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                ViewBag.PagesRules = Rules;
+
+            }
+        }
         #region select lists
         List<int> months = new List<int>();
         for (int i = 1; i <= 12; i++)
@@ -76,7 +91,6 @@ public class SalaryController : Controller
         int yearlyVacs = db.Vacations.Where(n => n.VacationDate.Month == month  && n.VacationDate.Year == year).Count();
 
 
-    
         // Get Plus and Minus Work Hours
         decimal plusPerHour = (decimal)db.Settings.Select(r => r.PlusPerhour).FirstOrDefault() ;
         decimal minusPerHour = (decimal)db.Settings.Select(r => r.MinusPerhour).FirstOrDefault();

@@ -1,5 +1,12 @@
 ﻿@using HR_System.ViewModels 
 @using HR_System.Models
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using System.Web
+@using System
+@using Microsoft.AspNetCore.Mvc
+
+@*@inject IHttpContextAccessor HttpContextAccessor*@
 
 
 
@@ -52,6 +59,28 @@
                 </li>
                 <li class="has-sub nav-item">
 
+                   
+                    
+        @* <script>
+            var isFiltered = '@HttpContextAccessor.HttpContext.Session.GetString("cruds")';
+            console.log(isFiltered);
+       </script>*@
+
+
+         @*  @{ #pragma warning disable CS8604 // Possible null reference argument.
+
+               var test = JsonConvert.DeserializeObject<Crud>( HttpContextAccessor.HttpContext.Session.GetString("cruds")); 
+              #pragma warning restore CS8604 // Possible null reference argument.
+
+            } *@
+         
+
+
+     
+
+
+
+
                     @if( ViewBag.PagesRules == null){
                          <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title"> Employees</span></a>
                                 <ul class="menu-content">
@@ -67,10 +96,10 @@
                                     <li class=" nav-item"><a asp-action="Index" asp-controller="user" ><i class="icon-users"></i><span data-i18n="" class="menu-title">Users</span></a>
                 </li>
 
-                <li class=" nav-item"><a asp-action="Index" asp-controller="Vacation"><i class="icon-note"></i><span data-i18n="" class="menu-title">Vacations</span></a>
+                <li class=" nav-item"><a href="add_employee.html"><i class="icon-note"></i><span data-i18n="" class="menu-title">Vacations</span></a>
                 </li>   
 
-                 <li class=" nav-item"><a asp-action="Index" asp-controller="Settings" ><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">
+                 <li class=" nav-item"><a href="general_settings.html"><i class="icon-pie-chart"></i><span data-i18n="" class="menu-title">
                    General Settings</span></a>
                 </li>
 
@@ -217,7 +246,7 @@
                 </li>
                 <li class="nav-item mt-1 d-none d-lg-block"><a id="navbar-notification-sidebar" href="javascript:;" class="nav-link position-relative notification-sidebar-toggle"><i class="icon-equalizer blue-grey darken-4"></i>
                     <p class="d-none">Notifications Sidebar</p></a></li>
-                <li class="dropdown nav-item mr-0"><a asp-action="Index"  asp-controller="Settings" id="dropdownBasic3" data-toggle="dropdown" class="nav-link position-relative dropdown-user-link dropdown-toggle"><span class="avatar avatar-online"><img id="navbar-avatar" src="~/img/portrait/small/avatar-s-3.jpg" alt="avatar"/></span>
+                <li class="dropdown nav-item mr-0"><a id="dropdownBasic3" href="#" data-toggle="dropdown" class="nav-link position-relative dropdown-user-link dropdown-toggle"><span class="avatar avatar-online"><img id="navbar-avatar" src="~/img/portrait/small/avatar-s-3.jpg" alt="avatar"/></span>
                     <p class="d-none">User Settings</p></a>
                   <div aria-labelledby="dropdownBasic3" class="dropdown-menu dropdown-menu-right">
                     <div class="arrow_box_right"><a href="user-profile-page.html" class="dropdown-item py-1"><i class="ft-edit mr-2"></i><span>My Profile</span></a><a href="chat.html" class="dropdown-item py-1"><i class="ft-message-circle mr-2"></i><span>My Chat</span></a><a href="javascript:;" class="dropdown-item py-1"><i class="ft-settings mr-2"></i><span>Settings</span></a>
@@ -485,10 +514,19 @@
     <script src="~/js/app-sidebar.js"></script>
     <script src="~/js/notification-sidebar.js"></script>
     <script src="~/js/customizer.js"></script>
-   <script src="~/js/dashboard-ecommerce.js"></script>
+   @*<script src="~/js/dashboard-ecommerce.js"></script>*@
    <partial name="_ValidationScriptsPartial"></partial>
 
  @await RenderSectionAsync("Scripts", required: false)
+ 
+
+   
+   
+   
+    
+   
 
 </body>
 </html>
+
+

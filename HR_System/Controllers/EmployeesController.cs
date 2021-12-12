@@ -21,6 +21,23 @@ namespace HR_System.Controllers
         // GET: Employees
         public IActionResult Index()
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
             return View();
         }
         // GET: AllEmployees 
@@ -52,7 +69,24 @@ if (gId != null)
         // GET: Employees/Details/5
         public IActionResult Details(int? id)
         {
-var gId = HttpContext.Session.GetString("groupId");
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
+            var gId = HttpContext.Session.GetString("groupId");
             string pageName = "Employees";
             if (gId != null)
             {
@@ -113,6 +147,23 @@ if (id == null)
         // GET: Employees/Create
         public IActionResult Create()
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
             ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" });
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName");
             return View();
