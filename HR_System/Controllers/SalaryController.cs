@@ -43,11 +43,6 @@ public class SalaryController : Controller
         List<Employee> employees = db.Employees.ToList();
         List<AttDep> attendence = db.Att_dep.ToList();
 
-
-        // Attendence Days using Explicit Loading 
-        //var x = db.Employees.Single( n => n.EmpId == 1);
-        //var y = db.Entry(x).Collection(n => n.AttDeps).Query().Count();
-
         // get days in month 
         var daysInMonth = DateTime.DaysInMonth(year,month);
 
@@ -59,19 +54,17 @@ public class SalaryController : Controller
         int m_Year = year;
 
         DateTime dt = new DateTime(m_Year, m_Month, 1);
-      
+        var dayone = db.Settings.Select(n=>n.Dayoff1).FirstOrDefault();
+        var daytwo = db.Settings.Select(n=>n.Dayoff2).FirstOrDefault();
 
 
         while (dt.Month == m_Month)
         {
-            if (dt.DayOfWeek == DayOfWeek.Friday)
+            if (dt.DayOfWeek.ToString() == dayone)
             {
-
                 dayoff_oneCount++;
             }  
-
-
-            if (dt.DayOfWeek == DayOfWeek.Saturday)
+            if (dt.DayOfWeek.ToString() == daytwo)
             {
                 dayoff_twoCount++;
             }

@@ -16,6 +16,7 @@ namespace HR_System.Controllers
         }
 
         [HttpPost]
+	[ValidateAntiForgeryToken]
         public IActionResult Index(Vacation v)
         {
             if (ModelState.IsValid)

@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HR_System.Controllers
 {
-    public class TestController : Controller
+    public class SettingsController : Controller
     {
         HrSysContext db;
 
-        public TestController(HrSysContext db)
+        public SettingsController(HrSysContext db)
         {
             this.db = db;
         }
@@ -21,7 +21,7 @@ var gId = HttpContext.Session.GetString("groupId");
                 ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
             }
             var setts = db.Settings.FirstOrDefault();
-            ViewBag.vac = new SelectList(new List<string>() { "saturday", "sunday", "Monday", "Tuesday", "wednesday", "Thursday", "Friday" });
+            ViewBag.vac = new SelectList(new List<string>() { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" });
             if (setts == null)
             {
                 Setting s = new Setting()
