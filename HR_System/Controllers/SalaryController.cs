@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace HR_System.Controllers;
 public class SalaryController : Controller
 {
-        HrSysContext db;
+    HrSysContext db;
+
 
         public SalaryController(HrSysContext db)
         {
@@ -21,6 +22,7 @@ public class SalaryController : Controller
             months.Add(i);
         }
         ViewBag.months = new SelectList(months);
+
 
         List<int> years = new List<int>();
         for (int i = 2008; i <= DateTime.Now.Year; i++)
@@ -41,6 +43,11 @@ public class SalaryController : Controller
         List<Employee> employees = db.Employees.ToList();
         List<AttDep> attendence = db.Att_dep.ToList();
 
+
+        // Attendence Days using Explicit Loading 
+        //var x = db.Employees.Single( n => n.EmpId == 1);
+        //var y = db.Entry(x).Collection(n => n.AttDeps).Query().Count();
+
         // get days in month 
         var daysInMonth = DateTime.DaysInMonth(year,month);
 
@@ -53,12 +60,16 @@ public class SalaryController : Controller
 
         DateTime dt = new DateTime(m_Year, m_Month, 1);
       
+
+
         while (dt.Month == m_Month)
         {
             if (dt.DayOfWeek == DayOfWeek.Friday)
             {
+
                 dayoff_oneCount++;
             }  
+
 
             if (dt.DayOfWeek == DayOfWeek.Saturday)
             {
@@ -71,6 +82,8 @@ public class SalaryController : Controller
         // Get official yearly vacations from vacation table
         int yearlyVacs = db.Vacations.Where(n => n.VacationDate.Month == month  && n.VacationDate.Year == year).Count();
 
+
+    
         // Get Plus and Minus Work Hours
         decimal plusPerHour = (decimal)db.Settings.Select(r => r.PlusPerhour).FirstOrDefault() ;
         decimal minusPerHour = (decimal)db.Settings.Select(r => r.MinusPerhour).FirstOrDefault();
@@ -80,17 +93,19 @@ public class SalaryController : Controller
             // Employee Fixed Working Hours Per Day
             decimal  workingHoursEmployee = (decimal) (emp.DepartureTime.TotalHours - emp.AttTime.TotalHours);
 
+
             // get total bonus hours
             var BonusHours = db.Entry(emp).Collection(n => n.AttDeps)
                 .Query()
                 .Where(n => n.Date.Year == year && n.Date.Month == month && n.workedHours > workingHoursEmployee)
                 .Select(n => n.workedHours).ToList()
-                .Sum( n => n - workingHoursEmployee);
 
+                .Sum( n => n - workingHoursEmployee);
 
             // get Minus bonus hours
             var MinusHours = db.Entry(emp).Collection(n => n.AttDeps)
              .Query()
+
              .Where(n => n.Date.Year == year && n.Date.Month == month && n.workedHours < workingHoursEmployee)
              .Select(n => n.workedHours).ToList()
              .Sum( n =>  workingHoursEmployee - n );
@@ -121,10 +136,12 @@ public class SalaryController : Controller
             decimal NetSalary = emp.FixedSalary + TotalBounus - TotalMinus - AbscenceDays * DailyRate;
             //decimal NetSalary = AttendanceDays * DailyRate + TotalBounus - TotalMinus;
             //decimal DisplayedSal = NetSalary > emp.FixedSalary? emp.FixedSalary : NetSalary;
+
             salary.Add(new SalaryVM()
             {
                 fixedSalary = emp.FixedSalary,
                 employeeName = emp.EmpName,
+
                 departmentName = emp.Dept.DeptName ,
                 attendenceDays = AttendanceDays,
                 abscenseDays = AbscenceDays,
@@ -141,5 +158,20 @@ public class SalaryController : Controller
             return PartialView(filteredSalary);
         }
         return PartialView(salary);
+
+    }
+    public IActionResult invoice(String empName, String departmentName,int fixedSalary,int attendenceDays,int abscenseDays, double BonusHours, double MinusHours, double TotalBonus, double TotalMinus, double NetSalary)
+    { 
+        ViewBag.empName= empName;
+        ViewBag.fixedSalary = fixedSalary;
+        ViewBag.departmentName = departmentName;
+        ViewBag.attendenceDays = attendenceDays;
+        ViewBag.abscenseDays = abscenseDays;
+        ViewBag.BonusHours = BonusHours;
+        ViewBag.MinusHours =MinusHours;
+        ViewBag.TotalBonus = TotalBonus; 
+        ViewBag.TotalMinus = TotalMinus;
+        ViewBag.NetSalary = NetSalary; 
+        return View();
     }
 }
