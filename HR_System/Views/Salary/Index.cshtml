@@ -8,12 +8,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
- 
-
+   
+  
 
     <h1>Index</h1>
 
-    @foreach( var i in Model){
+    @foreach( var i in ViewBag.sal){
 
 
     <div> Emp Name :  @i.employeeName </div>
@@ -29,11 +29,18 @@
 
        <div> Net Salary : @i.NetSalary </div>
 
-       <br /> <br />
+    <br /> <br />
+    
 
-     
-
-
-
+        <a asp-action="invoice" asp-controller="Salary" 
+        asp-route-empName="@i.employeeName" asp-route-fixedSalary="@i.fixedSalary" 
+        asp-route-departmentName="@i.departmentName" asp-route-attendenceDays="@i.attendenceDays"
+        asp-route-abscenseDays="@i.abscenseDays" 
+         asp-route-BonusHours="@i.BonusHours"  asp-route-MinusHours="@i.MinusHours"
+          asp-route-TotalBonus="@i.TotalBonus"  asp-route-TotalMinus="@i.TotalMinus"  
+           asp-route-NetSalary="@i.NetSalary"> Invoice </a>
     }
+        
+    
+   
 

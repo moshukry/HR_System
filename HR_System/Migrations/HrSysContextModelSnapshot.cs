@@ -92,11 +92,11 @@ namespace HR_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CrudId"), 1L, 1);
 
-                    b.Property<bool?>("Add")
+                    b.Property<bool>("Add")
                         .HasColumnType("bit")
                         .HasColumnName("add");
 
-                    b.Property<bool?>("Delete")
+                    b.Property<bool>("Delete")
                         .HasColumnType("bit")
                         .HasColumnName("delete");
 
@@ -108,11 +108,11 @@ namespace HR_System.Migrations
                         .HasColumnType("int")
                         .HasColumnName("page_id");
 
-                    b.Property<bool?>("Read")
+                    b.Property<bool>("Read")
                         .HasColumnType("bit")
                         .HasColumnName("read");
 
-                    b.Property<bool?>("Update")
+                    b.Property<bool>("Update")
                         .HasColumnType("bit")
                         .HasColumnName("update");
 

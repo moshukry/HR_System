@@ -19,7 +19,7 @@ public class DashboardController : Controller
 
         if (admin_id != null)
         {
-            userORAdmin.admin = db.Admins.Find(int.Parse( admin_id));
+            userORAdmin.admin = db.Admins.Find(int.Parse(admin_id));
             return View(userORAdmin);
         }
         else if (user_id != null)
@@ -27,7 +27,9 @@ public class DashboardController : Controller
             var gId = HttpContext.Session.GetString("groupId");
             if (gId != null)
             {
+#pragma warning disable CS8604 // Possible null reference argument.
                 List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(gId)).ToList();
+#pragma warning restore CS8604 // Possible null reference argument.
                 ViewBag.PagesRules = Rules;
                
             }

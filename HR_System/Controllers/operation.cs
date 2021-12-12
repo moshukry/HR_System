@@ -52,7 +52,7 @@ namespace HR_System.Controllers
 
                     int group_id = (int)user.GroupId;
 
-                    int group_id = (int) user.GroupId;
+                    //int group_id = (int) user.GroupId;
 
                     HttpContext.Session.SetString("groupId", group_id.ToString());
                     return RedirectToAction("Index", "Dashboard");
@@ -76,6 +76,8 @@ namespace HR_System.Controllers
                 }
                 string id = admin.AdminId.ToString();
                 HttpContext.Session.SetString("adminId", id);
+                //HttpContext.Session.SetString("sessionSalary",JsonConvert.SerializeObject(sal));
+                //var salarys =JsonConvert.DeserializeObject<SalaryVM>HttpContext.Session.GetString("sessionSalary");
                 return RedirectToAction("Index", "Dashboard");
             }
             User user = db.Users.Where(n => n.Username == a.AdminName && n.Password == a.AdminPass).FirstOrDefault();
@@ -91,8 +93,10 @@ namespace HR_System.Controllers
                 int user_id = user.UserId;
                 HttpContext.Session.SetString("userId",user_id.ToString());
 
-                int group_id = (int) user.GroupId;
+                int group_id = (int)user.GroupId;
+#pragma warning disable CS8604 // Possible null reference argument.
                 HttpContext.Session.SetString("groupId",group_id.ToString());
+#pragma warning restore CS8604 // Possible null reference argument.
                 return RedirectToAction("Index", "Dashboard");
             }
             ViewBag.status = "incorrect email or password ";
