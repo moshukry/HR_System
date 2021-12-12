@@ -10,6 +10,7 @@ public class SalaryVM
 
     public int abscenseDays {  get; set; }
 
+
     public double BonusHours { get; set; }
 
     public double MinusHours { get; set; }
@@ -18,6 +19,7 @@ public class SalaryVM
     public double TotalMinus { get; set; }
 
     public double NetSalary { get; set; }
+
 
 
 
