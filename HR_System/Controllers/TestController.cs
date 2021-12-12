@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using HR_System.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -14,7 +14,12 @@ namespace HR_System.Controllers
         }
         public IActionResult Index()
         {
-
+var gId = HttpContext.Session.GetString("groupId");
+            string pageName = "General Settings";
+            if (gId != null)
+            {
+                ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
+            }
             var setts = db.Settings.FirstOrDefault();
             ViewBag.vac = new SelectList(new List<string>() { "saturday", "sunday", "Monday", "Tuesday", "wednesday", "Thursday", "Friday" });
             if (setts == null)

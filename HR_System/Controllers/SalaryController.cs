@@ -1,24 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using HR_System.Models;
 using HR_System.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HR_System.Controllers;
 public class SalaryController : Controller
 {
     HrSysContext db;
 
-    public SalaryController(HrSysContext db)
-    {
-        this.db = db;
-    }
 
+        public SalaryController(HrSysContext db)
+        {
+               this.db = db;
+        }
     public IActionResult Index()
     {
+        #region select lists
+        List<int> months = new List<int>();
+        for (int i = 1; i <= 12; i++)
+        {
+            months.Add(i);
+        }
+        ViewBag.months = new SelectList(months);
 
+
+        List<int> years = new List<int>();
+        for (int i = 2008; i <= DateTime.Now.Year; i++)
+        {
+            years.Add(i);
+        }
+        ViewBag.years = new SelectList(years);
+        #endregion
+        return View();
+
+    }
+    public IActionResult SalaryTable(int selectedyear,int selectedmonth, string name)
+    {
+        int month = selectedmonth == 0? 1 : selectedmonth;
+        int year = selectedyear == 0?2008 : selectedyear;
+        
         List<SalaryVM> salary = new List<SalaryVM>();
-
         List<Employee> employees = db.Employees.ToList();
-
         List<AttDep> attendence = db.Att_dep.ToList();
 
 
@@ -26,89 +48,117 @@ public class SalaryController : Controller
         //var x = db.Employees.Single( n => n.EmpId == 1);
         //var y = db.Entry(x).Collection(n => n.AttDeps).Query().Count();
 
-
-
         // get days in month 
-        var daysInMonth = DateTime.DaysInMonth(2011, 11);
+        var daysInMonth = DateTime.DaysInMonth(year,month);
 
 
-        // Get days of Fridays & Satardays in  a month 
-        int Fridays = 0;
-        int Saturdays = 0;
-        int m_Month = 11;
-        int m_Year = 2011;
+        #region Get days of dayoff_oneCount & dayoff_twoCount in  a month 
+        int dayoff_oneCount = 0;
+        int dayoff_twoCount = 0;
+        int m_Month =month;
+        int m_Year = year;
 
-        DateTime dt = new DateTime(m_Year, m_Month, 1); // 1/11/2011
+        DateTime dt = new DateTime(m_Year, m_Month, 1);
+      
+
 
         while (dt.Month == m_Month)
         {
             if (dt.DayOfWeek == DayOfWeek.Friday)
             {
-                Fridays++;
-            }
+
+                dayoff_oneCount++;
+            }  
+
 
             if (dt.DayOfWeek == DayOfWeek.Saturday)
             {
-                Saturdays++;
+                dayoff_twoCount++;
             }
-            dt = dt.AddDays(1); // i++
+            dt = dt.AddDays(1);
         }
-
+        #endregion
 
         // Get official yearly vacations from vacation table
+        int yearlyVacs = db.Vacations.Where(n => n.VacationDate.Month == month  && n.VacationDate.Year == year).Count();
 
-        int yearlyVacs = db.Vacations.Where(n => n.VacationDate.Month == 11 && n.VacationDate.Year == 2011).Count();
 
-        //**********
-        // get Work Hours  [working hours from Employee - Work from Attendence ]
-        float plusPerHour = db.Settings.Select(r => r.PlusPerhour).FirstOrDefault();
-        float minusPerHour = db.Settings.Select(r => r.MinusPerhour).FirstOrDefault();
+    
+        // Get Plus and Minus Work Hours
+        decimal plusPerHour = (decimal)db.Settings.Select(r => r.PlusPerhour).FirstOrDefault() ;
+        decimal minusPerHour = (decimal)db.Settings.Select(r => r.MinusPerhour).FirstOrDefault();
 
         foreach (var emp in employees)
         {
-
-            double workingHoursEmployee = emp.DepartureTime.TotalMinutes / 60 - emp.AttTime.TotalMinutes / 60;// * working days
-
-            //  var workingHoursAttendence  = db.Entry(emp).Collection(n => n.AttDeps).Query().Where(n =>   n.Date.Year == 2011 && n.Date.Month == 11).Select(n =>new { n.Departure  , n.Attendance}).ToList().Sum(n => n.Departure.TotalHours - n.Attendance.TotalHours) ;
+            // Employee Fixed Working Hours Per Day
+            decimal  workingHoursEmployee = (decimal) (emp.DepartureTime.TotalHours - emp.AttTime.TotalHours);
 
 
             // get total bonus hours
-            // get Minus bonus hours
-
             var BonusHours = db.Entry(emp).Collection(n => n.AttDeps)
                 .Query()
-                .Where(n => n.Date.Year == 2011 && n.Date.Month == 11 && n.workedHours / 60 > workingHoursEmployee)
+                .Where(n => n.Date.Year == year && n.Date.Month == month && n.workedHours > workingHoursEmployee)
                 .Select(n => n.workedHours).ToList()
-                .Sum(n => n - workingHoursEmployee * 60);
 
+                .Sum( n => n - workingHoursEmployee);
 
+            // get Minus bonus hours
             var MinusHours = db.Entry(emp).Collection(n => n.AttDeps)
              .Query()
-             .Where(n => n.Date.Year == 2011 && n.Date.Month == 11 && n.workedHours / 60 < workingHoursEmployee)
+
+             .Where(n => n.Date.Year == year && n.Date.Month == month && n.workedHours < workingHoursEmployee)
              .Select(n => n.workedHours).ToList()
-             .Sum(n => workingHoursEmployee * 60 - n);
+             .Sum( n =>  workingHoursEmployee - n );
 
+            // Hourly Rate
+            decimal HourlyRate = emp.FixedSalary * 12 / 52 / (5 * workingHoursEmployee);
+            
 
-            double HourPrice = emp.FixedSalary / (workingHoursEmployee * 30);
+            // Days To Attend
+            int DaysToAttend = daysInMonth - dayoff_oneCount - dayoff_twoCount - yearlyVacs;
+            
+            // Daily Rate
+            decimal DailyRate = emp.FixedSalary/daysInMonth;
+            
+            //Attendance Days
+            int AttendanceDays = db.Entry(emp).Collection(n => n.AttDeps).Query().Where(n => n.Date.Month == month && n.Date.Year == year).Count();
+            
+            // Abscence Days 
+            int AbscenceDays = DaysToAttend - AttendanceDays;
+
+            // Total Bounus
+            decimal TotalBounus = BonusHours * plusPerHour * HourlyRate;
+
+            //Total Minus
+            decimal TotalMinus = MinusHours * minusPerHour * HourlyRate;
+
+            //NetSalary
+            decimal NetSalary = emp.FixedSalary + TotalBounus - TotalMinus - AbscenceDays * DailyRate;
+            //decimal NetSalary = AttendanceDays * DailyRate + TotalBounus - TotalMinus;
+            //decimal DisplayedSal = NetSalary > emp.FixedSalary? emp.FixedSalary : NetSalary;
 
             salary.Add(new SalaryVM()
             {
                 fixedSalary = emp.FixedSalary,
                 employeeName = emp.EmpName,
-                departmentName = emp.Dept.DeptName,
-                attendenceDays = db.Entry(emp).Collection(n => n.AttDeps).Query()
-                .Where(n => n.Date.Month == 11 && n.Date.Year == 2011).Count(),
-                abscenseDays = daysInMonth - Fridays - Saturdays - yearlyVacs - db.Entry(emp).Collection(n => n.AttDeps).Query().Where(n => n.Date.Month == 11 && n.Date.Year == 2011).Count(),
-                MinusHours = Math.Floor(MinusHours / 60),
-                BonusHours = Math.Floor(BonusHours / 60),
-                TotalBonus = Math.Floor((BonusHours / 60) * plusPerHour * HourPrice),
-                TotalMinus = Math.Floor((MinusHours / 60) * minusPerHour * HourPrice),
-                NetSalary = Math.Floor(emp.FixedSalary + ((BonusHours / 60) * plusPerHour * HourPrice) - (MinusHours / 60) * minusPerHour * HourPrice)
+
+                departmentName = emp.Dept.DeptName ,
+                attendenceDays = AttendanceDays,
+                abscenseDays = AbscenceDays,
+                BonusHours = Math.Floor(BonusHours),
+                MinusHours = Math.Floor(MinusHours),
+                TotalBonus = Math.Floor(TotalBounus),
+                TotalMinus = Math.Floor(TotalMinus),
+                NetSalary = Math.Floor(NetSalary)
             });
         }
+        if (name != null)
+        {
+            var filteredSalary = salary.Where(n => n.employeeName.Contains(name)).ToList();
+            return PartialView(filteredSalary);
+        }
+        return PartialView(salary);
 
-        ViewBag.sal= salary;
-        return View(salary);
     }
     public IActionResult invoice(String empName, String departmentName,int fixedSalary,int attendenceDays,int abscenseDays, double BonusHours, double MinusHours, double TotalBonus, double TotalMinus, double NetSalary)
     { 

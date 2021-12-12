@@ -35,11 +35,11 @@
 
             $('.app-sidebar').attr('data-background-color', bgColor);
             if(bgColor == 'white'){
-                $('.logo-img img').attr('src','assets/img/logo-dark.png');
+                $('.logo-img img').attr('src','~/img/logo-dark.png');
             }
             else{
-                if($('.logo-img img').attr('src') == 'assets/img/logo-dark.png'){
-                    $('.logo-img img').attr('src','assets/img/logo.png');
+                if($('.logo-img img').attr('src') == '~/img/logo-dark.png'){
+                    $('.logo-img img').attr('src','~/img/logo.png');
                 }
             }
         });

@@ -1,0 +1,80 @@
+﻿@model  List<HR_System.ViewModels.SalaryVM>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model[0].employeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].fixedSalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].departmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].attendenceDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].abscenseDays)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].BonusHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].MinusHours)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].TotalBonus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].TotalMinus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model[0].NetSalary)
+            </th>
+            <th>
+                Invoice
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.employeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.fixedSalary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.departmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.attendenceDays)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.abscenseDays)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BonusHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MinusHours)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalBonus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalMinus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NetSalary)
+                </td>
+                <td>
+                    <a asp-controller="salary" asp-action="invoice" class="btn btn-blue">Invoice</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

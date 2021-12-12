@@ -29,6 +29,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseExceptionHandler("/Error/500");
+app.UseStatusCodePagesWithRedirects("/Error/{0}");
+app.UseHsts();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();

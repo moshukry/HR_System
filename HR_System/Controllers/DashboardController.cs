@@ -1,24 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using HR_System.Models;
-using HR_System.ViewModels;
 
-namespace HR_System.Controllers;
-public class DashboardController : Controller
+namespace HR_System.Controllers
 {
-    HrSysContext db;
-
-    public DashboardController(HrSysContext db)
+    public class DashboardController : Controller
     {
-        this.db = db;
-    }
-    public IActionResult Index()
-    {
-        var admin_id = HttpContext.Session.GetString("adminId");
-        var user_id =  HttpContext.Session.GetString("userId");
-        UserORAdmin userORAdmin = new UserORAdmin();
+        private readonly HrSysContext _context;
 
-        if (admin_id != null)
+        public DashboardController(HrSysContext context)
         {
+            _context = context;
+          }
             userORAdmin.admin = db.Admins.Find(int.Parse(admin_id));
             return View(userORAdmin);
         }
@@ -37,7 +35,17 @@ public class DashboardController : Controller
             return View(userORAdmin);
 
 
+            
+      
+
+
+        // GET: Dashboard
+        public async Task<IActionResult> Index()
+        {
+            var hrSysContext = _context.Att_dep.Include(a => a.Emp);
+            return View(await hrSysContext.ToListAsync());
         }
-        return NotFound();
+
+      
     }
 }

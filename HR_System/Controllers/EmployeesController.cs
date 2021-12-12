@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,9 +27,10 @@ namespace HR_System.Controllers
         public IActionResult allEmployees(string search, int show)
         {
             var gId = HttpContext.Session.GetString("groupId");
-            if (gId != null)
+           string pageName = "Employees"; 
+if (gId != null)
             {
-                ViewBag.groupId = _context.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.PageId == 1).FirstOrDefault();
+                ViewBag.groupId = _context.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
             }
             var employees = _context.Employees.Include(e => e.Dept).ToList();
             if (search != null && show != 0)
@@ -51,7 +52,13 @@ namespace HR_System.Controllers
         // GET: Employees/Details/5
         public IActionResult Details(int? id)
         {
-            if (id == null)
+var gId = HttpContext.Session.GetString("groupId");
+            string pageName = "Employees";
+            if (gId != null)
+            {
+                ViewBag.groupId = _context.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
+            }            
+if (id == null)
             {
                 return NotFound();
             }
