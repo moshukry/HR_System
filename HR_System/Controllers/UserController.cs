@@ -17,7 +17,23 @@ public class UserController : Controller
     // List Users
     public IActionResult Index()
     {
+        var admin_id = HttpContext.Session.GetString("adminId");
+        var user_id = HttpContext.Session.GetString("userId");
 
+        if (admin_id != null)
+        {
+            ViewBag.PagesRules = null;
+        }
+        else if (user_id != null)
+        {
+            var b = HttpContext.Session.GetString("groupId");
+            if (b != null)
+            {
+                List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                ViewBag.PagesRules = Rules;
+
+            }
+        }
         var gId = HttpContext.Session.GetString("groupId");
         if (gId != null)
         {
@@ -32,6 +48,23 @@ public class UserController : Controller
 
     public IActionResult addUser()
     {
+        var admin_id = HttpContext.Session.GetString("adminId");
+        var user_id = HttpContext.Session.GetString("userId");
+
+        if (admin_id != null)
+        {
+            ViewBag.PagesRules = null;
+        }
+        else if (user_id != null)
+        {
+            var b = HttpContext.Session.GetString("groupId");
+            if (b != null)
+            {
+                List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                ViewBag.PagesRules = Rules;
+
+            }
+        }
         // Send Groups Drop Down List Data 
         ViewBag.groups = new SelectList( db.Groups.ToList() , "GroupId", "GroupName");
 
@@ -50,7 +83,24 @@ public class UserController : Controller
     // Edit User
     public IActionResult edit(int id)
     {
-         User OldUser =db.Users.Find(id);
+        var admin_id = HttpContext.Session.GetString("adminId");
+        var user_id = HttpContext.Session.GetString("userId");
+
+        if (admin_id != null)
+        {
+            ViewBag.PagesRules = null;
+        }
+        else if (user_id != null)
+        {
+            var b = HttpContext.Session.GetString("groupId");
+            if (b != null)
+            {
+                List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                ViewBag.PagesRules = Rules;
+
+            }
+        }
+        User OldUser =db.Users.Find(id);
         ViewBag.groups = new SelectList(db.Groups.ToList(), "GroupId", "GroupName");
 
         return View(OldUser);
