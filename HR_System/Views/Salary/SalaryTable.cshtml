@@ -72,7 +72,7 @@
                     @Html.DisplayFor(modelItem => i.NetSalary)
                 </td>
                 <td>
-                    <a asp-action="invoice" asp-controller="Salary" 
+                    <a class="btn btn-red" asp-action="invoice" asp-controller="Salary" 
                     asp-route-empName="@i.employeeName" asp-route-fixedSalary="@i.fixedSalary" 
                     asp-route-departmentName="@i.departmentName" asp-route-attendenceDays="@i.attendenceDays"
                     asp-route-abscenseDays="@i.abscenseDays" 
