@@ -120,7 +120,7 @@
 
 
         var tableChildRows = $('.show-child-rows').DataTable( {
-            "ajax": "../../app-assets/data/datatables/ajax-child-rows.json",
+            "ajax": "~/data/datatables/ajax-child-rows.json",
             "columns": [
                 {
                     "className":      'details-control',

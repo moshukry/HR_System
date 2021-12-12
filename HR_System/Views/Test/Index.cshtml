@@ -55,12 +55,15 @@
 								</div>
 
 							<div class="form-actions">
+@if (ViewBag.groupId == null || ViewBag.groupId.Update || ViewBag.groupId.Add)
+								{
 								<button asp-action="index" class="btn btn-danger mr-1">
 									<i class="icon-trash"></i> Cancel
 								</button>
 								<button type="submit" class="btn btn-success">
 									<i class="icon-note"></i> Save
 								</button>
+}
 							</div>
 						</form>
 					</div>

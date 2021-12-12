@@ -79,6 +79,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.EmpId" class="btn btn-success">Edit</a> |
-    <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
+    @if (ViewBag.groupId == null || ViewBag.groupId.Update)
+    {
+    <a asp-action="Edit" asp-route-id="@Model.EmpId" class="btn btn-success">Edit</a> 
+    }
+    | <a asp-action="Index" class="btn btn-outline-dark">Back to List</a>
 </div>
