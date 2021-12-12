@@ -81,7 +81,7 @@ if (gId != null)
                 var b = HttpContext.Session.GetString("groupId");
                 if (b != null)
                 {
-                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
                     ViewBag.PagesRules = Rules;
 
                 }
@@ -159,7 +159,7 @@ if (id == null)
                 var b = HttpContext.Session.GetString("groupId");
                 if (b != null)
                 {
-                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
                     ViewBag.PagesRules = Rules;
 
                 }
