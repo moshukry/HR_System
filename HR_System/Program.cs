@@ -1,7 +1,6 @@
 using HR_System.Models;
 using Microsoft.EntityFrameworkCore;
-
-
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +11,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 
+
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddDbContext<HrSysContext>(option => option.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("hrcon")));
+
 
 
 var app = builder.Build();

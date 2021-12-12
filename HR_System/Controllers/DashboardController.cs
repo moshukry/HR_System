@@ -20,6 +20,7 @@ public class DashboardController : Controller
         if (admin_id != null)
         {
             userORAdmin.admin = db.Admins.Find(int.Parse( admin_id));
+            ViewBag.PagesRules = null;
             return View(userORAdmin);
         }
         else if (user_id != null)
@@ -27,9 +28,10 @@ public class DashboardController : Controller
             var gId = HttpContext.Session.GetString("groupId");
             if (gId != null)
             {
+
                 List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(gId)).ToList();
                 ViewBag.PagesRules = Rules;
-               
+
             }
             userORAdmin.user = db.Users.Find(int.Parse(user_id));
             return View(userORAdmin);

@@ -86,6 +86,20 @@ namespace HR_System.Controllers
                 HttpContext.Session.SetString("userId",user_id.ToString());
                 int group_id = (int) user.GroupId;
                 HttpContext.Session.SetString("groupId",group_id.ToString());
+
+                Crud Cruds = db.CRUDs.Where(n => n.GroupId == group_id).FirstOrDefault();
+          
+
+                // HttpContext.Session.SetObjectAsJson("test", Cruds);
+
+                var json = JsonConvert.SerializeObject(Cruds,
+                 new JsonSerializerSettings()
+                 {
+                        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                     });
+
+                HttpContext.Session.SetString("cruds", json);
+
                 return RedirectToAction("Index", "Dashboard");
             }
             ViewBag.status = "incorrect email or password ";
@@ -130,5 +144,19 @@ namespace HR_System.Controllers
 
         }
     }
+
+    public static class SessionExtensions
+{
+  public static void SetObjectAsJson(this ISession session, string key, object value)
+   {
+     session.SetString(key, JsonConvert.SerializeObject(value));
+   }
+
+   public static T GetObjectFromJson<T>(this ISession session, string key)
+   {
+     var value = session.GetString(key);
+     return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+   }
+}
 }
 

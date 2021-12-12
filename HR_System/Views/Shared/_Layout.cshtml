@@ -1,5 +1,12 @@
 ﻿@using HR_System.ViewModels 
 @using HR_System.Models
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using System.Web
+@using System
+@using Microsoft.AspNetCore.Mvc
+
+@*@inject IHttpContextAccessor HttpContextAccessor*@
 
 
 
@@ -51,6 +58,28 @@
                    class="menu-title">Dashboard</span></a>
                 </li>
                 <li class="has-sub nav-item">
+
+                   
+                    
+        @* <script>
+            var isFiltered = '@HttpContextAccessor.HttpContext.Session.GetString("cruds")';
+            console.log(isFiltered);
+       </script>*@
+
+
+         @*  @{ #pragma warning disable CS8604 // Possible null reference argument.
+
+               var test = JsonConvert.DeserializeObject<Crud>( HttpContextAccessor.HttpContext.Session.GetString("cruds")); 
+              #pragma warning restore CS8604 // Possible null reference argument.
+
+            } *@
+         
+
+
+     
+
+
+
 
                     @if( ViewBag.PagesRules == null){
                          <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title"> Employees</span></a>
