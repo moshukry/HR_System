@@ -39,40 +39,46 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model) {
+        @foreach (var i in Model) {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.employeeName)
+                    @Html.DisplayFor(modelItem => i.employeeName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.fixedSalary)
+                    @Html.DisplayFor(modelItem => i.fixedSalary)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.departmentName)
+                    @Html.DisplayFor(modelItem => i.departmentName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.attendenceDays)
+                    @Html.DisplayFor(modelItem => i.attendenceDays)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.abscenseDays)
+                    @Html.DisplayFor(modelItem => i.abscenseDays)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.BonusHours)
+                    @Html.DisplayFor(modelItem => i.BonusHours)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MinusHours)
+                    @Html.DisplayFor(modelItem => i.MinusHours)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalBonus)
+                    @Html.DisplayFor(modelItem => i.TotalBonus)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TotalMinus)
+                    @Html.DisplayFor(modelItem => i.TotalMinus)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.NetSalary)
+                    @Html.DisplayFor(modelItem => i.NetSalary)
                 </td>
                 <td>
-                    <a asp-controller="salary" asp-action="invoice" class="btn btn-blue">Invoice</a>
+                    <a asp-action="invoice" asp-controller="Salary" 
+                    asp-route-empName="@i.employeeName" asp-route-fixedSalary="@i.fixedSalary" 
+                    asp-route-departmentName="@i.departmentName" asp-route-attendenceDays="@i.attendenceDays"
+                    asp-route-abscenseDays="@i.abscenseDays" 
+                    asp-route-BonusHours="@i.BonusHours"  asp-route-MinusHours="@i.MinusHours"
+                    asp-route-TotalBonus="@i.TotalBonus"  asp-route-TotalMinus="@i.TotalMinus"  
+                    asp-route-NetSalary="@i.NetSalary"> Invoice </a>
                 </td>
             </tr>
         }
