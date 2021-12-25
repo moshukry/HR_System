@@ -13,6 +13,8 @@ namespace HR_System.Models
         public int EmpId { get; set; }
 
         [Required(ErrorMessage = "* Date is Required")]
+        [DataType(DataType.Date)]
+
         public DateTime Date { get; set; }
 
 

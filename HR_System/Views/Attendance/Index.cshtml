@@ -42,6 +42,17 @@
                                     <i class="ft-plus"></i>&nbsp;
                                     <a asp-action="Create"> Add Employee Attendance</a>
                                 </button>
+                                <form  asp-controller="Attendance" asp-action="excelSubmit" method="post" enctype="multipart/form-data"  >
+
+                                  <input type="file" name="file" class="btn  mr-2" />                                
+                                 <button type="submit"  class="btn btn-primary mr-2">
+                                     <i class="ft-plus"></i>&nbsp;
+                                     Submit Attendence  File
+                                     </button>
+
+                                 
+                                </form>
+                               
                             </div>
                         </div>
                     </div>
