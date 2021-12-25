@@ -71,10 +71,10 @@ namespace HR_System.Migrations
                         .HasColumnType("int")
                         .HasColumnName("emp_id");
 
-                    b.Property<int>("workedHours")
+                    b.Property<decimal>("workedHours")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int")
-                        .HasComputedColumnSql("DatePart(HOUR ,[departure] )*60 + DatePart(MINUTE ,[departure] ) -  DatePart(HOUR ,[attendance] )*60 + DatePart(MINUTE ,[attendance] )");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComputedColumnSql("DatePart(HOUR ,[departure] ) + DatePart(MINUTE ,[departure])/60.0 -  DatePart(HOUR ,[attendance] ) + DatePart(MINUTE ,[attendance] )/60.0");
 
                     b.HasKey("AttId");
 
@@ -92,11 +92,11 @@ namespace HR_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CrudId"), 1L, 1);
 
-                    b.Property<bool?>("Add")
+                    b.Property<bool>("Add")
                         .HasColumnType("bit")
                         .HasColumnName("add");
 
-                    b.Property<bool?>("Delete")
+                    b.Property<bool>("Delete")
                         .HasColumnType("bit")
                         .HasColumnName("delete");
 
@@ -108,11 +108,11 @@ namespace HR_System.Migrations
                         .HasColumnType("int")
                         .HasColumnName("page_id");
 
-                    b.Property<bool?>("Read")
+                    b.Property<bool>("Read")
                         .HasColumnType("bit")
                         .HasColumnName("read");
 
-                    b.Property<bool?>("Update")
+                    b.Property<bool>("Update")
                         .HasColumnType("bit")
                         .HasColumnName("update");
 
@@ -280,11 +280,13 @@ namespace HR_System.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("dayoff_2");
 
-                    b.Property<float>("MinusPerhour")
+                    b.Property<float?>("MinusPerhour")
+                        .IsRequired()
                         .HasColumnType("real")
                         .HasColumnName("minus_perhour");
 
-                    b.Property<float>("PlusPerhour")
+                    b.Property<float?>("PlusPerhour")
+                        .IsRequired()
                         .HasColumnType("real")
                         .HasColumnName("plus_perhour");
 
@@ -345,6 +347,7 @@ namespace HR_System.Migrations
                         .HasColumnName("vacation_date");
 
                     b.Property<string>("VacationName")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)")
                         .HasColumnName("vacation_name");

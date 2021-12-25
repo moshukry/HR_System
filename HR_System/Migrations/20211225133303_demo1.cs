@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HR_System.Migrations
 {
-    public partial class init : Migration
+    public partial class demo1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,10 +68,10 @@ namespace HR_System.Migrations
                 {
                     setting_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    plus_perhour = table.Column<double>(type: "float", nullable: true),
-                    minus_perhour = table.Column<double>(type: "float", nullable: true),
-                    dayoff_1 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    dayoff_2 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    plus_perhour = table.Column<float>(type: "real", nullable: false),
+                    minus_perhour = table.Column<float>(type: "real", nullable: false),
+                    dayoff_1 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    dayoff_2 = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -84,8 +84,8 @@ namespace HR_System.Migrations
                 {
                     vac_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    vacation_date = table.Column<DateTime>(type: "date", nullable: true),
-                    vacation_name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
+                    vacation_date = table.Column<DateTime>(type: "date", nullable: false),
+                    vacation_name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,11 +98,9 @@ namespace HR_System.Migrations
                 {
                     emp_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    emp_name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-
-                    phone = table.Column<string>(type: "nvarchar(11)", nullable: false),
-
+                    emp_name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    address = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    phone = table.Column<string>(type: "nvarchar(11)", maxLength: 11, nullable: false),
                     gender = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     nationality = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     birthdate = table.Column<DateTime>(type: "date", nullable: false),
@@ -129,7 +127,6 @@ namespace HR_System.Migrations
                 {
                     user_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    full_name = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
@@ -151,10 +148,10 @@ namespace HR_System.Migrations
                 {
                     crud_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    add = table.Column<bool>(type: "bit", nullable: true),
-                    update = table.Column<bool>(type: "bit", nullable: true),
-                    delete = table.Column<bool>(type: "bit", nullable: true),
-                    read = table.Column<bool>(type: "bit", nullable: true),
+                    add = table.Column<bool>(type: "bit", nullable: false),
+                    update = table.Column<bool>(type: "bit", nullable: false),
+                    delete = table.Column<bool>(type: "bit", nullable: false),
+                    read = table.Column<bool>(type: "bit", nullable: false),
                     page_id = table.Column<int>(type: "int", nullable: false),
                     group_id = table.Column<int>(type: "int", nullable: false)
                 },
@@ -181,8 +178,9 @@ namespace HR_System.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     emp_id = table.Column<int>(type: "int", nullable: false),
                     date = table.Column<DateTime>(type: "date", nullable: false),
-                    attendance = table.Column<TimeSpan>(type: "time", nullable: true),
-                    departure = table.Column<TimeSpan>(type: "time", nullable: true)
+                    attendance = table.Column<TimeSpan>(type: "time", nullable: false),
+                    departure = table.Column<TimeSpan>(type: "time", nullable: false),
+                    workedHours = table.Column<decimal>(type: "decimal(18,2)", nullable: false, computedColumnSql: "DatePart(HOUR ,[departure] ) + DatePart(MINUTE ,[departure])/60.0 -  DatePart(HOUR ,[attendance] ) + DatePart(MINUTE ,[attendance] )/60.0")
                 },
                 constraints: table =>
                 {

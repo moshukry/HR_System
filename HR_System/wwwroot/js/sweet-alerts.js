@@ -48,7 +48,7 @@
 		});
 
 		$('#custom-icon').on('click', function () {
-			swal({ title: "Sweet!", text: "Here's a custom image.", imageUrl: "app-assets/img/icons/thumbs-up.jpg" });
+			swal({ title: "Sweet!", text: "Here's a custom image.", imageUrl: "~/img/icons/thumbs-up.jpg" });
 		});
 
 		$('#auto-close').on('click', function () {

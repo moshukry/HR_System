@@ -1,22 +1,44 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using HR_System.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HR_System.Controllers
 {
-    public class TestController : Controller
+    public class SettingsController : Controller
     {
         HrSysContext db;
 
-        public TestController(HrSysContext db)
+        public SettingsController(HrSysContext db)
         {
             this.db = db;
         }
         public IActionResult Index()
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
 
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
+            var gId = HttpContext.Session.GetString("groupId");
+            string pageName = "General Settings";
+            if (gId != null)
+            {
+                ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
+            }
             var setts = db.Settings.FirstOrDefault();
-            ViewBag.vac = new SelectList(new List<string>() { "saturday", "sunday", "Monday", "Tuesday", "wednesday", "Thursday", "Friday" });
+            ViewBag.vac = new SelectList(new List<string>() { "Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" });
             if (setts == null)
             {
                 Setting s = new Setting()

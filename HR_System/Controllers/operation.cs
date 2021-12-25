@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Session;
 
 namespace HR_System.Controllers
 {
-    public class operation : Controller
+    public class operation : Controller 
     {
         HrSysContext db;
 
         public operation(HrSysContext db)
         {
-            this.db = db;
+             this.db = db;
         }
         public IActionResult Index()
         {
@@ -52,8 +52,6 @@ namespace HR_System.Controllers
 
                     int group_id = (int)user.GroupId;
 
-
-
                     HttpContext.Session.SetString("groupId", group_id.ToString());
                     return RedirectToAction("Index", "Dashboard");
                 }
@@ -76,6 +74,8 @@ namespace HR_System.Controllers
                 }
                 string id = admin.AdminId.ToString();
                 HttpContext.Session.SetString("adminId", id);
+                //HttpContext.Session.SetString("sessionSalary",JsonConvert.SerializeObject(sal));
+                //var salarys =JsonConvert.DeserializeObject<SalaryVM>HttpContext.Session.GetString("sessionSalary");
                 return RedirectToAction("Index", "Dashboard");
             }
             User user = db.Users.Where(n => n.Username == a.AdminName && n.Password == a.AdminPass).FirstOrDefault();
@@ -92,34 +92,30 @@ namespace HR_System.Controllers
                 HttpContext.Session.SetString("userId", user_id.ToString());
 
                 int group_id = (int)user.GroupId;
-                HttpContext.Session.SetString("groupId", group_id.ToString());
+
+#pragma warning disable CS8604 // Possible null reference argument.
+                HttpContext.Session.SetString("groupId",group_id.ToString());
+#pragma warning restore CS8604 // Possible null reference argument.
+
                 return RedirectToAction("Index", "Dashboard");
             }
             ViewBag.status = "incorrect email or password ";
             return View();
         }
 
-        public ActionResult profileAdmin()
-        {
-
-            var admin_id = HttpContext.Session.GetString("adminId");
-            return View(db.Admins.Find(int.Parse(admin_id.ToString())));
-        }
-        public ActionResult profileUser()
-        {
-            //var user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userData"));
-            var user_id = HttpContext.Session.GetString("userId");
-            return View(db.Users.Find(int.Parse(user_id.ToString())));
-        }
-
         public ActionResult logout()
         {
-            //Session["userData"] = null;
-            //HttpCookie c = new HttpCookie();
-            //c.Expires = DateTime.Now.AddMonths(-1);
-            //Response.Cookies.Add(c);
+            // delete the sessions
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
 
-            HttpContext.Session.Remove("userData");
+            if (admin_id != null){
+                HttpContext.Session.Remove("adminId");
+            }
+            else {
+                HttpContext.Session.Remove("userId");
+                HttpContext.Session.Remove("groupId");
+            }
 
             //Erase the data in the cookie
             CookieOptions option = new CookieOptions();

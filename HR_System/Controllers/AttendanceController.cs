@@ -2,6 +2,10 @@
 using HR_System.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using System.Text;
+using ExcelDataReader;
+
 
 namespace HR_System.Controllers
 {
@@ -14,6 +18,23 @@ namespace HR_System.Controllers
         }
         public IActionResult Index()
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
             return View();
         }
 
@@ -55,6 +76,23 @@ namespace HR_System.Controllers
         // GET: AttDeps/Create
         public IActionResult Create()
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                var b = HttpContext.Session.GetString("groupId");
+                if (b != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    ViewBag.PagesRules = Rules;
+
+                }
+            }
             ViewBag.EmpId = new SelectList(db.Employees, "EmpId", "EmpName");
             return View();
         }
@@ -84,5 +122,67 @@ namespace HR_System.Controllers
             }
             return View(attDep);
         }
+
+        [HttpPost]
+        public IActionResult excelSubmit(IFormFile file, [FromServices] Microsoft.AspNetCore.Hosting.IHostingEnvironment hostingEnvironment)
+        {
+            string fileName = $"{hostingEnvironment.WebRootPath}\\files\\{file.FileName}";
+
+            using (FileStream fileStream = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+
+            }
+
+         this.GetAttendenceList(file.FileName);
+
+            return RedirectToAction("Index");
+           
+        }
+
+        public void GetAttendenceList(string fname)
+        {
+            List<AttDep> records = new List<AttDep>();
+            var fileName = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files\"}"+fname;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+            using (var stream =System.IO.File.Open(fileName, FileMode.Open, FileAccess.Read))
+            {
+
+                using (var reader = ExcelReaderFactory.CreateReader(stream))
+                {
+                    while (reader.Read())
+                    {
+                        double code = (double) reader.GetValue(0);
+                        DateTime att = (DateTime)reader.GetValue(2);
+                        DateTime dep = (DateTime)reader.GetValue(3);
+
+
+                        records.Add(new AttDep()
+                        {
+
+                            EmpId = (int) code ,
+                            Date= (DateTime) reader.GetValue(1),
+                            Attendance= att.TimeOfDay,
+                            Departure=  dep.TimeOfDay
+                        });
+                    }
+
+                    foreach(var record in records)
+                    {
+
+                    db.Att_dep.Add(record);
+
+                    }
+                    db.SaveChanges();
+                    
+                }
+            }
+        }
+
+
+
+
     }
 }

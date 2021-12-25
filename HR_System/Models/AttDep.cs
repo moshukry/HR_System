@@ -23,7 +23,7 @@ namespace HR_System.Models
         [Required(ErrorMessage = "*")]
         public TimeSpan Departure { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int workedHours { get; set; }
+        public decimal workedHours { get; set; }
         public virtual Employee? Emp { get; set; } = null!;
     }
 }
