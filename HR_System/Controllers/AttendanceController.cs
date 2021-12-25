@@ -37,6 +37,11 @@ namespace HR_System.Controllers
             return PartialView(db.Att_dep.ToList().Take(10));
         }
 
+        protected HR_System.ConfirmBase DeleteConfirmation { get; set; }
+        protected void Delete_Click()
+        {
+            DeleteConfirmation.Show();
+        }
         public ActionResult Delete(int? id)
         {
             if (id != null)
@@ -54,6 +59,7 @@ namespace HR_System.Controllers
 
         }
 
+
         // GET: AttDeps/Create
         public IActionResult Create()
         {
@@ -67,6 +73,17 @@ namespace HR_System.Controllers
         public IActionResult Create([Bind("AttId,EmpId,Date,Attendance,Departure,EmpName")] AttDep attDep)
         {
             ViewBag.EmpId = new SelectList(db.Employees, "EmpId", "EmpName", attDep.EmpId);
+            DateTime datebeforemonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month - 1, DateTime.Now.Day);
+            if (attDep.Date > DateTime.Today || attDep.Date < datebeforemonth)
+            {
+                ViewBag.Date = "Sorry You can't add date in future Or month before";
+                return View(attDep);
+            }
+            if (attDep.Departure < attDep.Attendance)
+            {
+                ViewBag.Departuretime = "Attendance must be before than Departure time";
+                return View(attDep);
+            }
             if (ModelState.IsValid)
             {
                 db.Add(attDep);
