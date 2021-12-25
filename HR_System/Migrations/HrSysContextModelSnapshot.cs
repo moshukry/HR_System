@@ -71,9 +71,9 @@ namespace HR_System.Migrations
                         .HasColumnType("int")
                         .HasColumnName("emp_id");
 
-                    b.Property<float>("workedHours")
+                    b.Property<decimal>("workedHours")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("real")
+                        .HasColumnType("decimal(18,2)")
                         .HasComputedColumnSql("DatePart(HOUR ,[departure] ) + DatePart(MINUTE ,[departure])/60.0 -  DatePart(HOUR ,[attendance] ) + DatePart(MINUTE ,[attendance] )/60.0");
 
                     b.HasKey("AttId");
@@ -280,11 +280,13 @@ namespace HR_System.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("dayoff_2");
 
-                    b.Property<float>("MinusPerhour")
+                    b.Property<float?>("MinusPerhour")
+                        .IsRequired()
                         .HasColumnType("real")
                         .HasColumnName("minus_perhour");
 
-                    b.Property<float>("PlusPerhour")
+                    b.Property<float?>("PlusPerhour")
+                        .IsRequired()
                         .HasColumnType("real")
                         .HasColumnName("plus_perhour");
 
@@ -345,6 +347,7 @@ namespace HR_System.Migrations
                         .HasColumnName("vacation_date");
 
                     b.Property<string>("VacationName")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)")
                         .HasColumnName("vacation_name");

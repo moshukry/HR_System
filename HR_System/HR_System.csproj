@@ -11,6 +11,10 @@
 
 
 
+    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
+
+
+
     <PackageReference Include="jQuery" Version="3.6.0" />
 
 
@@ -37,6 +41,13 @@
 
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="3.2.12" />
 
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
+
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
 </Project>
