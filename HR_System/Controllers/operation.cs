@@ -12,7 +12,7 @@ namespace HR_System.Controllers
 
         public operation(HrSysContext db)
         {
-               this.db = db;
+            this.db = db;
         }
         public IActionResult Index()
         {
@@ -52,7 +52,7 @@ namespace HR_System.Controllers
 
                     int group_id = (int)user.GroupId;
 
-                    int group_id = (int) user.GroupId;
+
 
                     HttpContext.Session.SetString("groupId", group_id.ToString());
                     return RedirectToAction("Index", "Dashboard");
@@ -89,10 +89,10 @@ namespace HR_System.Controllers
                     Response.Cookies.Append("role", "user", opt);
                 }
                 int user_id = user.UserId;
-                HttpContext.Session.SetString("userId",user_id.ToString());
+                HttpContext.Session.SetString("userId", user_id.ToString());
 
-                int group_id = (int) user.GroupId;
-                HttpContext.Session.SetString("groupId",group_id.ToString());
+                int group_id = (int)user.GroupId;
+                HttpContext.Session.SetString("groupId", group_id.ToString());
                 return RedirectToAction("Index", "Dashboard");
             }
             ViewBag.status = "incorrect email or password ";
