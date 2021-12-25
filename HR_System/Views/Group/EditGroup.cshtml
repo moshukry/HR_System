@@ -75,12 +75,11 @@
      $(function(){
           for(let i=0; i<= @ViewBag.PageCrud ; i++) {
           if($(".read"+i).is(":checked")){
-                $(".read"+i).val(1);
                 $(".enbleEdit"+i).attr('disabled', false);
                  $(".enbleDel"+i).attr('disabled', false)
 
                 }else{
-                 $(".read"+i).val(0);
+
                  $(".enbleEdit"+i).attr('disabled', true);
 
                  $(".enbleDel"+i).attr('disabled', true);
@@ -91,12 +90,10 @@
      for(let i=0; i<= @ViewBag.PageCrud ; i++) {
         $(".read"+i).on("change",function(event){  
             if($(this).is(":checked")){
-                $(this).val(1);
                 $(".enbleEdit"+i).attr('disabled', false);
                  $(".enbleDel"+i).attr('disabled', false)
 
                 }else{
-                 $(this).val(0);
                  $(".enbleEdit"+i).attr('disabled', true);
                  $(".enbleEdit"+i).prop('checked', false);
 

@@ -46411,19 +46411,19 @@ datetime .form-group {
   letter-spacing : 0.6px;
 }
 .app-sidebar .navigation li.has-sub > a:after, .off-canvas-sidebar .navigation li.has-sub > a:after {
-  content : '\e929';
-  font-family : 'feather';
-  font-size : 1rem;
-  display : inline-block;
-  position : absolute;
-  right : 1.75rem;
-  top : 10px;
-  -webkit-transform : rotate(0);
-     -moz-transform : rotate(0);
-      -ms-transform : rotate(0);
-       -o-transform : rotate(0);
-          transform : rotate(0);
-  transition : -webkit-transform 0.2s ease-in-out;
+    /*content : '\e929';*/
+    font-family: 'feather';
+    font-size: 1rem;
+    display: inline-block;
+    position: absolute;
+    right: 1.75rem;
+    top: 10px;
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+    transition: -webkit-transform 0.2s ease-in-out;
 }
 .app-sidebar .navigation li.has-sub > a, .off-canvas-sidebar .navigation li.has-sub > a {
   margin-bottom : 0;

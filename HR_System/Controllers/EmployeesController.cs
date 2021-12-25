@@ -180,7 +180,9 @@ namespace HR_System.Controllers
         {
             if (employee.DepartureTime < employee.AttTime)
             {
-                ViewBag.deptafteratt = "Attendance Time Can't Be After Departure Time!";
+                ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" }, employee.Gender);
+                ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
+                ViewBag.deptafteratt = "  Attendance Time Can't Be After Departure Time!";
                 return View(employee);
             }
             if (ModelState.IsValid)
