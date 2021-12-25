@@ -35,6 +35,7 @@
                                             <div class="form-control-position">
                                                 <i class="ft-message-square"></i>
                                             </div>
+                                            <div class="text-danger">   @ViewBag.Date</div>
                                         </div>
                                     </div>
                                 </div>
@@ -56,17 +57,20 @@
                                             <label class="col-md-3 label-control">Departure time: </label>
                                             <div class="position-relative has-icon-left col-lg-9">
                                                 <input type="time" id="timesheetinput6" class="form-control" asp-for="Departure">
-                                                <span asp-validation-for="Attendance" class="text-danger"></span>
+                                                <span asp-validation-for="Departure" class="text-danger"></span>
                                                 <div class="form-control-position">
                                                     <i class="ft-clock"></i>
                                                 </div>
+                                                <div class="text-danger">  @ViewBag.Departuretime</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <a asp-action="Index" class="btn btn-danger mr-1 icon-trash"> Cancel</a>
-                                    <button type="submit" class="btn btn-success"><i class="icon-note"></i> Save</button>
+                                    <a asp-action="index" class="btn btn-danger mr-1"><i class="icon-trash"></i> Cancel</a>
+                                    <button type="submit" class="btn btn-success" id="addAtt">
+                                        <i class="icon-note"></i> Save
+                                    </button>
                                 </div>
                             </div>
                         </form>

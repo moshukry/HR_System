@@ -8,7 +8,8 @@
                 Employee Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @*@Html.DisplayNameFor(model => model.Date)*@
+                Date
             </th>
             <th>
                 Attendance Time
@@ -36,7 +37,15 @@
                     @Html.DisplayFor(modelItem => item.Departure)
                 </td>
                 <td>
-                    <a asp-action="Delete" asp-route-id="@item.AttId" class="btn btn-danger mr-1 icon-trash" onclick="return confirm('Are you sure to delete '+'@item.Emp.EmpName'+' ?')">  Delete</a>
+                    <form>
+                        <a asp-action="Delete" asp-route-id="@item.AttId"
+                       class="btn btn-danger mr-1 icon-trash" id="deleteicon1"
+                       data-target="exampleModal"
+                       data-toggle="modal">
+                            Delete
+                        </a>
+                        <input type="hidden" id="id" name="id" value="@item.AttId" />
+                    </form>
                 </td>
             </tr>
         }

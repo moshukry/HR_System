@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<AttDep>
-@*@model List<AttDep>*@
 
 
 <section id="configuration">
@@ -65,9 +64,16 @@
 </section>
 
 
-@section scripts{
 
-<script>
+
+
+
+
+
+@section scripts{
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+<script type="text/javascript">
     $(function(){
         $("#Lists").load("list")
     })
@@ -77,14 +83,13 @@
     $("#show").on("change",function(){
         $("#Lists").load("list?show="+$("#show").val()+"&Search="+$("#Search").val())
     })
+    //-------------------------------------------
+
+    $("#Lists").on("click","#deleteicon1",function(e){
+        var id=$(this).parent().find('#id').val();
+        $("#exampleModal #id").val(id);
+        $("#exampleModal").modal('show');
+    });
 </script>
 }
-
-
-@*<partial name="Create">*@
-
-
-@*@Html.Partial("Create")*@
-
-@*<partial name="_ProductPartial" for="Create">*@
 
