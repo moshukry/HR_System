@@ -55,7 +55,7 @@
 
                         @if (ViewBag.groupId == null || ViewBag.groupId.Delete)
                         {
-                            <a asp - action = "Delete" asp - route - id = "@item.EmpId" class="btn btn-danger" onclick = "return confirm('Are You Sure to delete '+'@item.EmpName '+'?')"><i class="icon-trash"></i> Delete</a>
+                            <a asp-action = "Delete" asp-route-id = "@item.EmpId" class="btn btn-danger" onclick = "return confirm('Are You Sure to delete this employee?')"><i class="icon-trash"></i> Delete</a>
                         }
                     </td>
                 </tr>

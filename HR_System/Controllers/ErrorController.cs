@@ -46,8 +46,8 @@ namespace HR_System.Controllers
                
 
             }
-            // return View("NotFound");
-             return View();
+           // return View("NotFound");
+            return View(401);
         }
         public IActionResult Index()
         {
