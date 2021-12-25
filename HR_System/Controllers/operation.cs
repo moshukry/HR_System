@@ -6,13 +6,14 @@ using Microsoft.AspNetCore.Session;
 
 namespace HR_System.Controllers
 {
-    public class operation : Controller
+    public class operation : Controller 
     {
         HrSysContext db;
 
         public operation(HrSysContext db)
         {
                this.db = db;
+
         }
         public IActionResult Index()
         {
@@ -101,27 +102,19 @@ namespace HR_System.Controllers
             return View();
         }
 
-        public ActionResult profileAdmin()
-        {
-
-            var admin_id = HttpContext.Session.GetString("adminId");
-            return View(db.Admins.Find(int.Parse(admin_id.ToString())));
-        }
-        public ActionResult profileUser()
-        {
-            //var user = JsonConvert.DeserializeObject<User>(HttpContext.Session.GetString("userData"));
-            var user_id = HttpContext.Session.GetString("userId");
-            return View(db.Users.Find(int.Parse(user_id.ToString())));
-        }
-
         public ActionResult logout()
         {
-            //Session["userData"] = null;
-            //HttpCookie c = new HttpCookie();
-            //c.Expires = DateTime.Now.AddMonths(-1);
-            //Response.Cookies.Add(c);
+            // delete the sessions
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
 
-            HttpContext.Session.Remove("userData");
+            if (admin_id != null){
+                HttpContext.Session.Remove("adminId");
+            }
+            else {
+                HttpContext.Session.Remove("userId");
+                HttpContext.Session.Remove("groupId");
+            }
 
             //Erase the data in the cookie
             CookieOptions option = new CookieOptions();
