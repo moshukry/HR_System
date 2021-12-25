@@ -23,11 +23,14 @@ namespace HR_System.Controllers
         }
 
         // GET: Dashboard
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             var admin_id = HttpContext.Session.GetString("adminId");
             var user_id = HttpContext.Session.GetString("userId");
-
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
             if (admin_id != null)
             {
                 ViewBag.PagesRules = null;
@@ -42,8 +45,8 @@ namespace HR_System.Controllers
 
                 }
             }
-            var hrSysContext = db.Att_dep.Include(a => a.Emp);
-            return View(await hrSysContext.ToListAsync());
+            var mj = db.Att_dep.Include(a => a.Emp);
+            return View( mj.ToList());
         }
     }
 }

@@ -105,9 +105,9 @@ ViewData["Title"] = "Create";
 									</div>
 									<div class="col-md-12">
 										<div class=" row form-group">
-											<div>@ViewBag.deptafteratt</div>
 											<label class="col-md-3 label-control" >End time: </label>
 											<div class="position-relative has-icon-left col-lg-9">
+												<div class="text-danger"> @ViewBag.deptafteratt</div>
 												<span asp-validation-for="DepartureTime" class="text-danger"></span>	
 												<input type="time" asp-for="DepartureTime" class="form-control" />
 											</div>
@@ -125,9 +125,9 @@ ViewData["Title"] = "Create";
 
 								<hr />
 								<div class="">
-									<button asp-action="index" class="btn btn-danger mr-1">
+									<a asp-action="Index" asp-controller="Employees" class="btn btn-danger mr-1">
 										<i class="icon-trash"></i> Cancel
-									</button>
+									</a>
 									<button type="submit" class="btn btn-success">
 										<i class="icon-note"></i> Save
 									</button>

@@ -8,35 +8,38 @@ namespace HR_System.Controllers
     public class GroupController : Controller
     {
         HrSysContext db;
+        public string pagename { get; set; }
         public GroupController(HrSysContext db)
         {
             this.db = db;
+            pagename = "Permisions";
         }
         public IActionResult Index()
         {
+            //Rules Permisions
             var admin_id = HttpContext.Session.GetString("adminId");
             var user_id = HttpContext.Session.GetString("userId");
-
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
             if (admin_id != null)
             {
                 ViewBag.PagesRules = null;
             }
             else if (user_id != null)
             {
-                var b = HttpContext.Session.GetString("groupId");
-                if (b != null)
+                if (group_id != null)
                 {
-                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
                     ViewBag.PagesRules = Rules;
-
+                    Crud crud = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Read) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
                 }
             }
-            var gId = HttpContext.Session.GetString("groupId");
-            string pageName = "Permissions";
-            if (gId != null)
-            {
-                ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
-            }
+            //////////////////////////////////////////////////////////////////////////////
 
             List<Group> groups = db.Groups.ToList();
             return View(groups);
@@ -45,12 +48,30 @@ namespace HR_System.Controllers
         //search and show
         public IActionResult groupSearch(string search,int show)
         {
-            var gId = HttpContext.Session.GetString("groupId");
-            string pageName = "Permissions";
-            if (gId != null)
+            //Rules Permisions
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
             {
-                ViewBag.groupId = db.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
+                return RedirectToAction("login", "operation");
             }
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                if (group_id != null)
+                {
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
+                    ViewBag.PagesRules = Rules;
+                    Crud crud = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Read) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
+                }
+            }
+            ////////////////////////////////////////////////////////////////////////////////////////
 
             List <Group> allgroups = db.Groups.OrderBy(n=>n.GroupId).ToList();
 
@@ -77,24 +98,32 @@ namespace HR_System.Controllers
         //create
         public IActionResult CreateGroup()
         {
+            //Rules Permisions
             var admin_id = HttpContext.Session.GetString("adminId");
             var user_id = HttpContext.Session.GetString("userId");
-
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
             if (admin_id != null)
             {
                 ViewBag.PagesRules = null;
             }
             else if (user_id != null)
             {
-                var b = HttpContext.Session.GetString("groupId");
-                if (b != null)
+                if (group_id != null)
                 {
-                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
                     ViewBag.PagesRules = Rules;
-
+                    Crud crud = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Read) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
                 }
             }
-            List <PageCrud> pc=new List<PageCrud>();
+            ////////////////////////////////////////////////////////////////////////////////////////
+            
+            List<PageCrud> pc=new List<PageCrud>();
             foreach(var item in db.Pages.ToList())
             {
                 pc.Add(new PageCrud { page = item });
@@ -252,23 +281,31 @@ namespace HR_System.Controllers
         //edit
         public IActionResult EditGroup(int id)
         {
+            //Rules Permisions
             var admin_id = HttpContext.Session.GetString("adminId");
             var user_id = HttpContext.Session.GetString("userId");
-
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
             if (admin_id != null)
             {
                 ViewBag.PagesRules = null;
             }
             else if (user_id != null)
             {
-                var b = HttpContext.Session.GetString("groupId");
-                if (b != null)
+                if (group_id != null)
                 {
-                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
                     ViewBag.PagesRules = Rules;
-
+                    Crud crud = db.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Read) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
                 }
             }
+            ////////////////////////////////////////////////////////////////////////////////////////
+
             List<PageCrud> pageCruds=new List<PageCrud>();
             List<Crud> cruds = db.CRUDs.Where(n => n.GroupId == id).ToList(); 
             
@@ -357,7 +394,6 @@ namespace HR_System.Controllers
                     //for loading the data in view
                     List<PageCrud> pageCrudsErorr = new List<PageCrud>();
                     List<Crud> crudsErorr = db.CRUDs.Where(n => n.GroupId == g.group.GroupId).ToList();
-
                     foreach (var cr in crudsErorr)
                     {
                         pageCrudsErorr.Add(new PageCrud { page = cr.Page, ADD = cr.Add, Update = cr.Update, Read = cr.Read, Delete = cr.Delete });
@@ -369,14 +405,10 @@ namespace HR_System.Controllers
                     };
                     ViewBag.PageCrud = groupRelationErorr.pageCruds.Count;
                     return View(groupRelationErorr);
-
                 }
-
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-        
-
             // if user enter data not valid
             List<PageCrud> pageCruds = new List<PageCrud>();
             List<Crud> cruds = db.CRUDs.Where(n => n.GroupId == g.group.GroupId).ToList();
@@ -399,11 +431,19 @@ namespace HR_System.Controllers
         {
            Group g=db.Groups.Find(id);
            List<Crud> c=db.CRUDs.Where(n=>n.GroupId==id).ToList();
+            List<User> u = db.Users.Where(n => n.GroupId == id).ToList();
             if (c != null) 
             {
                 foreach (Crud crud in c)
                 {
                     db.CRUDs.Remove(crud);
+                }
+            }
+            if(u != null)
+            {
+                foreach(User user in u)
+                {
+                    db.Users.Remove(user);
                 }
             }
             if (g != null)
