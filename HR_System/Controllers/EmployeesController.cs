@@ -6,15 +6,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HR_System.Models;
+using Microsoft.AspNetCore.Authorization;
+using HR_System.CustomAttribues;
 
 namespace HR_System.Controllers
 {
     public class EmployeesController : Controller
     {
         private readonly HrSysContext _context;
-
+        public string pagename { get; set; }
         public EmployeesController(HrSysContext context)
         {
+            pagename = "Employees";
             _context = context;
         }
 
@@ -23,19 +26,24 @@ namespace HR_System.Controllers
         {
             var admin_id = HttpContext.Session.GetString("adminId");
             var user_id = HttpContext.Session.GetString("userId");
-
+            var group_id = HttpContext.Session.GetString("groupId");
+            if(admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login","operation");
+            }
             if (admin_id != null)
             {
                 ViewBag.PagesRules = null;
             }
             else if (user_id != null)
             {
-                var b = HttpContext.Session.GetString("groupId");
-                if (b != null)
+                if (group_id != null)
                 {
-                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
                     ViewBag.PagesRules = Rules;
-
+                    Crud crud = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Read) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
                 }
             }
             return View();
@@ -43,11 +51,27 @@ namespace HR_System.Controllers
         // GET: AllEmployees 
         public IActionResult allEmployees(string search, int show)
         {
-            var gId = HttpContext.Session.GetString("groupId");
-           string pageName = "Employees"; 
-if (gId != null)
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
             {
-                ViewBag.groupId = _context.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
+                return RedirectToAction("login", "operation");
+            }
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                if (group_id != null)
+                {
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
+                    ViewBag.PagesRules = Rules;
+                    Crud crud = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Read) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
+                }
             }
             var employees = _context.Employees.Include(e => e.Dept).ToList();
             if (search != null && show != 0)
@@ -71,32 +95,30 @@ if (gId != null)
         {
             var admin_id = HttpContext.Session.GetString("adminId");
             var user_id = HttpContext.Session.GetString("userId");
-
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
             if (admin_id != null)
             {
                 ViewBag.PagesRules = null;
             }
             else if (user_id != null)
             {
-                var b = HttpContext.Session.GetString("groupId");
-                if (b != null)
+                if (group_id != null)
                 {
-                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
                     ViewBag.PagesRules = Rules;
-
+                    Crud crud = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Read) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
                 }
-            }
-            var gId = HttpContext.Session.GetString("groupId");
-            string pageName = "Employees";
-            if (gId != null)
-            {
-                ViewBag.groupId = _context.CRUDs.Where(n => n.GroupId == int.Parse(gId) && n.Page.PageName == pageName).FirstOrDefault();
-            }            
-if (id == null)
+            }           
+            if (id == null)
             {
                 return NotFound();
             }
-
             var employee = _context.Employees
                 .Include(e => e.Dept)
                 .FirstOrDefault(m => m.EmpId == id);
@@ -104,18 +126,17 @@ if (id == null)
             {
                 return NotFound();
             }
-
             return View(employee);
         }
-        // Remote Validations for Employee BirthDate and HireDate...
+        // Remote Validations for Employee BirthDate...
         public IActionResult birthdatecheck(DateTime Birthdate)
         {
-
             DateTime datebefore20 = new DateTime(DateTime.Now.Year-20,DateTime.Now.Month,DateTime.Now.Day);
             
             if (Birthdate < datebefore20) return Json(true);
             else return Json(false);
         }
+        // Remote Validations for Employee HireDate...
         public JsonResult hiredatecheck(DateTime Hiredate)
         {
             DateTime companystartdate = new DateTime(2008,1,1);
@@ -123,45 +144,28 @@ if (id == null)
             if (Hiredate > companystartdate) return Json(true);
             else return Json(false);
         }
-        //public TimeSpan? attTime;
-        //public IActionResult DeptTimeCheck(TimeSpan? AttTime, TimeSpan? DepartureTime)
-        //{
-        //    if(AttTime != null)
-        //    {
-        //        attTime = AttTime;
-        //        return Json(true);
-        //    }
-        //    if (DepartureTime != null)
-        //    {
-        //        if(DepartureTime > attTime)
-        //        {
-        //            return Json(true);
-        //        }
-        //        else
-        //        {
-        //            return Json(false);
-        //        }
-        //    }
-        //    return Json(false);
-        //}
-        // GET: Employees/Create
         public IActionResult Create()
         {
             var admin_id = HttpContext.Session.GetString("adminId");
             var user_id = HttpContext.Session.GetString("userId");
-
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
             if (admin_id != null)
             {
                 ViewBag.PagesRules = null;
             }
             else if (user_id != null)
             {
-                var b = HttpContext.Session.GetString("groupId");
-                if (b != null)
+                if (group_id != null)
                 {
-                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(b)).ToList();
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
                     ViewBag.PagesRules = Rules;
-
+                    Crud crud = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Add) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
                 }
             }
             ViewBag.Gender = new SelectList(new List<string>() { "Male", "Female" });
@@ -174,6 +178,11 @@ if (id == null)
         [ValidateAntiForgeryToken]
         public IActionResult Create(Employee employee)
         {
+            if (employee.DepartureTime < employee.AttTime)
+            {
+                ViewBag.deptafteratt = "Attendance Time Can't Be After Departure Time!";
+                return View(employee);
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
@@ -184,16 +193,35 @@ if (id == null)
             ViewBag.Depts = new SelectList(_context.Departments, "DeptId", "DeptName", employee.DeptId);
             return View(employee);
         }
-
-
         // GET: Employees/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                if (group_id != null)
+                {
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
+                    ViewBag.PagesRules = Rules;
+                    Crud crud = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Update) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
+                }
+            }
             if (id == null)
             {
                 return NotFound();
             }
-
             var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
@@ -242,6 +270,28 @@ if (id == null)
         // GET: Employees/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var admin_id = HttpContext.Session.GetString("adminId");
+            var user_id = HttpContext.Session.GetString("userId");
+            var group_id = HttpContext.Session.GetString("groupId");
+            if (admin_id == null && user_id == null)
+            {
+                return RedirectToAction("login", "operation");
+            }
+            if (admin_id != null)
+            {
+                ViewBag.PagesRules = null;
+            }
+            else if (user_id != null)
+            {
+                if (group_id != null)
+                {
+                    List<Crud> Rules = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id)).ToList();
+                    ViewBag.PagesRules = Rules;
+                    Crud crud = _context.CRUDs.Where(n => n.GroupId == int.Parse(group_id.ToString()) && n.Page.PageName == pagename).FirstOrDefault();
+                    ViewBag.groupId = crud;
+                    if (!crud.Delete) return RedirectToAction("HttpStatusCodeHandler", "error", new { StatusCode = 401 });
+                }
+            }
             if (id == null)
             {
                 return NotFound();
