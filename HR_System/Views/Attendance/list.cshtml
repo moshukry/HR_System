@@ -38,10 +38,8 @@
                 </td>
                 <td>
                     <form>
-                        <a asp-action="Delete" asp-route-id="@item.AttId"
-                       class="btn btn-danger mr-1 icon-trash" id="deleteicon1"
-                       data-target="exampleModal"
-                       data-toggle="modal">
+                        <a asp-controller="Attendance" asp-action="Delete" asp-route-id="@item.AttId"
+                       class="btn btn-danger mr-1 icon-trash" id="deleteicon1" onclick="return confirm('You Are Going to delete this Record , Are You Sure?')">
                             Delete
                         </a>
                         <input type="hidden" id="id" name="id" value="@item.AttId" />
