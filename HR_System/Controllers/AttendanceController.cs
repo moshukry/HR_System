@@ -36,12 +36,6 @@ namespace HR_System.Controllers
             }
             return PartialView(db.Att_dep.ToList().Take(10));
         }
-
-        protected HR_System.ConfirmBase DeleteConfirmation { get; set; }
-        protected void Delete_Click()
-        {
-            DeleteConfirmation.Show();
-        }
         public ActionResult Delete(int? id)
         {
             if (id != null)
@@ -58,8 +52,6 @@ namespace HR_System.Controllers
             return NotFound();
 
         }
-
-
         // GET: AttDeps/Create
         public IActionResult Create()
         {

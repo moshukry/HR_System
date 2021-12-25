@@ -7,12 +7,13 @@ namespace HR_System.Models
 {
     public partial class AttDep
     {
-     
+
         public int AttId { get; set; }
 
         public int EmpId { get; set; }
 
         [Required(ErrorMessage = "* Date is Required")]
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
 
