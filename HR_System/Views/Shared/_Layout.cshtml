@@ -46,7 +46,7 @@
      <div class="wrapper">
       <div data-active-color="white" data-background-color="black" data-image="~/img/sidebar-bg/01.jpg" class="app-sidebar">
         <div class="sidebar-header">
-          <div class="logo clearfix"><a href="index.html" class="logo-text float-left">
+          <div class="logo clearfix"><a asp-controller="dashboard" asp-action="index" class="logo-text float-left">
               <div class="logo-img"><img src="~/img/logo.png" alt="Convex Logo"/></div><span class="text align-middle">Hr System</span></a>
               <a id="sidebarToggle" href="javascript:;" class="nav-toggle d-none d-sm-none d-md-none d-lg-block"></a><a id="sidebarClose" href="javascript:;" class="nav-close d-block d-md-block d-lg-none d-xl-none">
                    </a></div>
@@ -54,7 +54,7 @@
         <div class="sidebar-content">
           <div class="nav-container">
              <ul id="main-menu-navigation" data-menu="menu-navigation" class="navigation navigation-main">
-                <li class="nav-item home"><a href="#"><i class="icon-home"></i><span data-i18n=""
+                <li class="nav-item home"><a asp-controller="dashboard" asp-action="index"><i class="icon-home"></i><span data-i18n=""
                    class="menu-title">Dashboard</span></a>
                 </li>
                 <li class="has-sub nav-item">

@@ -90,7 +90,7 @@
                             </div>
                             <div class="text-center">
                                 <p>Authorized person</p>
-                                <img src="~/img/pages/signature-scan.png" alt="signature" class="width-250">
+                                <img src="~/img/signature-scan.png" alt="signature" class="width-250">
                                 <h6>Amanda Orton</h6>
                                 <p class="text-muted">Managing Director</p>
                             </div>
@@ -106,7 +106,8 @@
                                 much for the next year and yet far too little for the next 10.</p>
                         </div>
                         <div class="col-md-3 col-sm-12 text-center">
-                            <button type="button" class="btn btn-primary my-1"><i class="fa fa-paper-plane-o"></i> Send Invoice</button>
+                            <button type="button" class="btn btn-primary my-1"><i class="fa fa-paper-plane-o"></i>
+                                <a href="mailto:email-to@gmail.com?&subject=Invoice Salary for @ViewBag.empName&body=Department:@ViewBag.departmentName,%0D%0ANameSalary: @ViewBag.fixedSalary $,%0D%0AAttendence Day:@ViewBag.attendenceDays,%0D%0AAbscense Day:@ViewBag.abscenseDays,%0D%0ABonus: @ViewBag.BonusHours $,%0D%0AMinus:@ViewBag.MinusHours $,%0D%0ATotal Bonus:@ViewBag.TotalBonus $,%0D%0AMinus Bonus:@ViewBag.TotalMinus $ ,%0D%0ANet Salary :@ViewBag.NetSalary $,%0D%0A">Send Invoice</a> </button>
                         </div>
                     </div>
                 </div>
@@ -114,4 +115,5 @@
             </div>
         </div>
     </div>
-              
+     
+                                       

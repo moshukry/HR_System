@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HR_System.Migrations
 {
-    public partial class hoursIsHours : Migration
+    public partial class demo1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,7 +85,7 @@ namespace HR_System.Migrations
                     vac_id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     vacation_date = table.Column<DateTime>(type: "date", nullable: false),
-                    vacation_name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true)
+                    vacation_name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -180,7 +180,7 @@ namespace HR_System.Migrations
                     date = table.Column<DateTime>(type: "date", nullable: false),
                     attendance = table.Column<TimeSpan>(type: "time", nullable: false),
                     departure = table.Column<TimeSpan>(type: "time", nullable: false),
-                    workedHours = table.Column<float>(type: "real", nullable: false, computedColumnSql: "DatePart(HOUR ,[departure] ) + DatePart(MINUTE ,[departure])/60.0 -  DatePart(HOUR ,[attendance] ) + DatePart(MINUTE ,[attendance] )/60.0")
+                    workedHours = table.Column<decimal>(type: "decimal(18,2)", nullable: false, computedColumnSql: "DatePart(HOUR ,[departure] ) + DatePart(MINUTE ,[departure])/60.0 -  DatePart(HOUR ,[attendance] ) + DatePart(MINUTE ,[attendance] )/60.0")
                 },
                 constraints: table =>
                 {

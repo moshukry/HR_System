@@ -10,7 +10,8 @@ public class SalaryController : Controller
     public SalaryController(HrSysContext db)
     {
             this.db = db;
-    }
+
+     }
     public IActionResult Index()
     {
         var admin_id = HttpContext.Session.GetString("adminId");

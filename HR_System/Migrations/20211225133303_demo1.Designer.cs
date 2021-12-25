@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HR_System.Migrations
 {
     [DbContext(typeof(HrSysContext))]
-    [Migration("20211209173000_a1")]
-    partial class a1
+    [Migration("20211225133303_demo1")]
+    partial class demo1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,10 +73,10 @@ namespace HR_System.Migrations
                         .HasColumnType("int")
                         .HasColumnName("emp_id");
 
-                    b.Property<int>("workedHours")
+                    b.Property<decimal>("workedHours")
                         .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("int")
-                        .HasComputedColumnSql("DatePart(HOUR ,[departure] )*60 + DatePart(MINUTE ,[departure] ) -  DatePart(HOUR ,[attendance] )*60 + DatePart(MINUTE ,[attendance] )");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComputedColumnSql("DatePart(HOUR ,[departure] ) + DatePart(MINUTE ,[departure])/60.0 -  DatePart(HOUR ,[attendance] ) + DatePart(MINUTE ,[attendance] )/60.0");
 
                     b.HasKey("AttId");
 
@@ -282,11 +282,13 @@ namespace HR_System.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("dayoff_2");
 
-                    b.Property<float>("MinusPerhour")
+                    b.Property<float?>("MinusPerhour")
+                        .IsRequired()
                         .HasColumnType("real")
                         .HasColumnName("minus_perhour");
 
-                    b.Property<float>("PlusPerhour")
+                    b.Property<float?>("PlusPerhour")
+                        .IsRequired()
                         .HasColumnType("real")
                         .HasColumnName("plus_perhour");
 
@@ -347,6 +349,7 @@ namespace HR_System.Migrations
                         .HasColumnName("vacation_date");
 
                     b.Property<string>("VacationName")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)")
                         .HasColumnName("vacation_name");
