@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HR_System.Migrations
 {
     [DbContext(typeof(HrSysContext))]
-    [Migration("20211224231849_excelMigration")]
-    partial class excelMigration
+    [Migration("20211225133303_demo1")]
+    partial class demo1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
