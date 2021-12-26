@@ -27,10 +27,10 @@
                     <div class="form-group row">
 
 @* ///    User Name  Input *@
-                         <div> @Html.LabelFor(n => n.Username , new { @class = "col-md-3 label-control" }) </div>
 
-                        <div class="col-md-9">
-                             <div> @Html.TextBoxFor(n => n.Username, new { @class = "form-control" })</div>
+                        <div >
+                         <span> @Html.LabelFor(n => n.Username , new { @class = "col-md-3 " }) </span>
+                             <span> @Html.TextBoxFor(n => n.Username, new { @class = "form-control col-md-9 " })</span>
                              <div  class="text-danger">@Html.ValidationMessageFor(n => n.Username)</div>
                         </div>
                     </div>
@@ -38,10 +38,10 @@
                     <div class="form-group row">
 
 @* ///   Email  Input *@
-                         <div> @Html.LabelFor(n => n.Email , new { @class = "col-md-3 label-control" }) </div>
 
-                        <div class="col-md-9">
-                             <div> @Html.TextBoxFor(n => n.Email, new { @class = "form-control" })</div>
+                        <div >
+                         <span> @Html.LabelFor(n => n.Email , new { @class = "col-md-3 " }) </span>
+                             <span> @Html.TextBoxFor(n => n.Email, new { @class = "form-control col-md-9" })</span>
                              <div  class="text-danger">@Html.ValidationMessageFor(n => n.Email)</div>
                         </div>
                     </div>
@@ -51,17 +51,17 @@
                   <div class="form-group row">
 
 @* /// Group   Input *@
-                      <div> @Html.LabelFor(n => n.Group.GroupName , new { @class = "col-md-3 label-control" }) </div> 
-                    <div> @Html.DropDownListFor(n => n.GroupId ,(SelectList) ViewBag.groups ,new { @class = "col-md-3 label-control" }) </div>
+                      <span> @Html.LabelFor(n => n.Group.GroupName , new { @class = "col-md-3   " }) </span> 
+                    <span> @Html.DropDownListFor(n => n.GroupId ,(SelectList) ViewBag.groups ,new { @class = "col-md-9 form-control " }) </span>
 
                   </div>
                     </div>
 
 
                      <div class="form-actions mt-5">
-                  <button type="button" class="btn btn-danger mr-1">
+                  <a asp-action="index" asp-controller="user" class="btn btn-danger mr-1">
                     <i class="icon-trash"></i> Cancel
-                  </button>
+                  </a>
                   <button type="submit" class="btn btn-success">
                     <i class="icon-note"></i> Save
                   </button>

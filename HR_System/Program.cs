@@ -23,14 +23,20 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error/{statusCode}");
-    app.UseStatusCodePagesWithRedirects("/Error/{0}");
+    //app.UseExceptionHandler("/Error/{statusCode}");
+    //app.UseStatusCodePagesWithRedirects("/Error/{0}");
+
+    app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-else
-{
-    app.UseDeveloperExceptionPage();
-}
+//else
+//{
+//    app.UseDeveloperExceptionPage();
+//}
+app.UseExceptionHandler("/Error/500");
+//app.UseExceptionHandler("/Error/{statusCode}");
+app.UseStatusCodePagesWithRedirects("/Error/{statusCode}");
+app.UseHsts();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
